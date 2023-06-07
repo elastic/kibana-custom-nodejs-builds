@@ -5,6 +5,6 @@ TODO: write about the repo structure and the call-chain
 
 TODOs:
  - create buildkite pipeline
- - add node.js distribution publish step
+ - add node.js distribution publish step (should this be published on Github?)
  - check Docker build, whether it will need uploading
  - parameterize tasks for node version
