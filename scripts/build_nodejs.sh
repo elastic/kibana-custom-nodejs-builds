@@ -16,11 +16,11 @@ docker run --rm -it --platform linux/amd64 \
   -v ./workdir:/home/node/workdir \
   $BUILD_IMAGE_NAME \
   $RELEASE_URL_BASE \
-  $FULL_VERSION
+  $TARGET_NODE_VERSION
 
 echo '--- Buidling node for linux/arm64'
 docker run --rm -it --platform linux/arm64 \
   -v ./workdir:/home/node/workdir \
   $BUILD_IMAGE_NAME \
   $RELEASE_URL_BASE \
-  $FULL_VERSION
+  $TARGET_NODE_VERSION
