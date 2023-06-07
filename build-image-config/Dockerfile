@@ -4,7 +4,7 @@ ARG GROUP_ID=1000
 ARG USER_ID=1000
 
 RUN groupadd --force --gid $GROUP_ID node
-RUN adduser --force --gid $GROUP_ID --uid $USER_ID node
+RUN adduser --gid $GROUP_ID --uid $USER_ID node
 
 RUN ulimit -n 1024 \
     && yum install -y epel-release \

@@ -9,7 +9,9 @@ DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../build-image-config/"
 # docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --userns host
 
 echo "--- Creating multiarch driver"
-docker buildx create --name multiarch --driver docker-container --use
+if [[ $(docker buildx ls | grep multiarch | wc -l) -lt 1 ]]; then
+  docker buildx create --name multiarch --driver docker-container --use
+fi
 
 
 echo "--- Building node.js build images"
