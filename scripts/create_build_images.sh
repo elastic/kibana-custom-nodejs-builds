@@ -5,8 +5,8 @@ set -euo pipefail
 SCRIPT_DIR=$(dirname $0)
 DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../build-image-config/"
 
-echo "--- Starting qemu image"
-docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --userns host
+# echo "--- Starting qemu image"
+# docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --userns host
 
 
 echo "--- Building node.js build images"
