@@ -1,10 +1,7 @@
-env:
-  GITHUB_COMMIT_STATUS_ENABLED: 'true'
-  GITHUB_COMMIT_STATUS_CONTEXT: 'buildkite/on-merge'
 steps:
   - command: scripts/create_build_images.sh
     label: Create node.js build images
-    timeout_in_minutes: 10
+    timeout_in_minutes: 30
     agents:
       queue: kibana-default
     retry:
@@ -12,12 +9,14 @@ steps:
         - exit_status: '*'
           limit: 1
 
+  - wait
+
   - command: scripts/build_nodejs.sh
     label: Build node.js
     agents:
       queue: kibana-default
     key: build
-    timeout_in_minutes: 60
+    timeout_in_minutes: 100
     retry:
       automatic:
         - exit_status: '*'
