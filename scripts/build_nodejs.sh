@@ -1,9 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-TARGET_NODE_VERSION="v18.15.0"
+TARGET_VERSION="18.15.0"
+TARGET_NODE_VERSION="v$TARGET_VERSION"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
-BUILD_IMAGE_NAME=nodejs-custom:18.15.0
+BUILD_IMAGE_NAME="docker.io/elastic/nodejs-custom:$TARGET_VERSION"
 
 echo '--- Downloading node source'
 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
