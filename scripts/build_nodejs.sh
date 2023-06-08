@@ -6,22 +6,33 @@ TARGET_NODE_VERSION="v$TARGET_VERSION"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
 BUILD_IMAGE_NAME="docker.io/elastic/nodejs-custom:$TARGET_VERSION"
 
+if [[ "$ARCH" == "arm64" || "$ARCH" == "amd64" ]]; then
+  # we're good, supported architecture
+  echo "Building for architecture: $ARCH"
+else
+  echo "ARCH (=$ARCH) env variable is not one of: arm64, amd64"
+  exit 1
+fi
+
+
 echo '--- Downloading node source'
 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
   https://nodejs.org/download/release/$TARGET_NODE_VERSION/node-$TARGET_NODE_VERSION.tar.xz
 tar -xf ./workdir/src/node-$TARGET_NODE_VERSION.tar.xz -C ./workdir/src
 
 
-echo '--- Buidling node for linux/amd64'
-docker run --rm -it --platform linux/amd64 \
-  -v ./workdir:/home/node/workdir \
-  $BUILD_IMAGE_NAME \
-  $RELEASE_URL_BASE \
-  $TARGET_NODE_VERSION
-
-echo '--- Buidling node for linux/arm64'
-docker run --rm -it --platform linux/arm64 \
-  -v ./workdir:/home/node/workdir \
-  $BUILD_IMAGE_NAME \
-  $RELEASE_URL_BASE \
-  $TARGET_NODE_VERSION
+if [[ "$ARCH" == "arm64" ]]; then
+  echo '--- Buidling node for linux/amd64'
+  docker run --rm -it --platform linux/amd64 \
+    -v ./workdir:/home/node/workdir \
+    $BUILD_IMAGE_NAME \
+    $RELEASE_URL_BASE \
+    $TARGET_NODE_VERSION
+elif [[  "$ARCH" == "amd64" ]]; then
+  echo '--- Buidling node for linux/arm64'
+  docker run --rm -it --platform linux/arm64 \
+    -v ./workdir:/home/node/workdir \
+    $BUILD_IMAGE_NAME \
+    $RELEASE_URL_BASE \
+    $TARGET_NODE_VERSION
+fi
