@@ -7,10 +7,12 @@ steps:
       imagePrefix: drivah-ubuntu-2204-aarch64
     command: |
       buildah --version
-      drivah build --changed-since=main ./.buildkite/containers/arm64
+      drivah build --changed-since=main ./containers/arm64
 
-  # - label: ":buildah: Building Container Images for AMD64"
-  #   branches: "*"
-  #   command: |
-  #     buildah --version
-  #     drivah build --changed-since=main ./.buildkite/containers/amd64
+  - wait
+
+  - label: ":buildah: Building Container Images for AMD64"
+    branches: "*"
+    command: |
+      buildah --version
+      drivah build --changed-since=main ./.buildkite/containers/amd64
