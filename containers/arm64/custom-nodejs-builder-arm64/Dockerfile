@@ -1,4 +1,4 @@
-FROM arm64v8/centos:7
+FROM docker.io/library/arm64v8/centos:7
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
