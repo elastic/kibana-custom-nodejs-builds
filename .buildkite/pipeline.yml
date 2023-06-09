@@ -15,4 +15,4 @@ steps:
     branches: "*"
     command: |
       buildah --version
-      drivah build --changed-since=main ./.buildkite/containers/amd64
+      drivah build --changed-since=main ./containers/amd64
