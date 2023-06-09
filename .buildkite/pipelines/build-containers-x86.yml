@@ -1,0 +1,22 @@
+agents:
+  image: docker.elastic.co/ci-agent-images/drivah:0.18.1
+  ephemeralStorage: 50G
+  memory: 4G
+
+steps:
+  - label: "Build"
+    branches: "*"
+    command:
+       - drivah build ./.buildkite/containers
+  - wait
+
+  - label: "Inspect images"
+    command:
+       - docker image inspect docker.elastic.co/ci-agent-images/kibana/custom-nodejs-builder:arm64-01 | grep Arch
+       - docker image inspect docker.elastic.co/ci-agent-images/kibana/custom-nodejs-builder:amd64-01 | grep Arch
+
+  # - label: "Build and Push"
+  #   branches: "main"
+  #   command:
+  #     - ./.buildkite/docker-login.sh
+  #     - drivah build --changed-since=HEAD^ --push .
