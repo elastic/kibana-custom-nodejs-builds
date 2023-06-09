@@ -1,3 +1,6 @@
+agents:
+  queue: kibana-default
+
 steps:
   - command: scripts/docker_login.sh
 
