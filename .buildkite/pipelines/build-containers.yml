@@ -1,11 +1,10 @@
-agents:
-  provider: aws
-  instanceType: m6g.xlarge
-  imagePrefix: drivah-ubuntu-2204-aarch64
-
 steps:
   - label: ":buildah: Building Container Images for ARM64"
     branches: "*"
+    agents:
+      provider: aws
+      instanceType: m6g.xlarge
+      imagePrefix: drivah-ubuntu-2204-aarch64
     command: |
       buildah --version
       drivah build --changed-since=main ./.buildkite/containers/arm64
