@@ -1,0 +1,20 @@
+steps:
+  - label: ":buildah: Building Container Images for ARM64"
+    branches: "*"
+    command: |
+      buildah --version
+      drivah build --changed-since=main ./.buildkite/containers/arm64
+    agents:
+      provider: "aws"
+      imagePrefix: "drivah-ubuntu-2204-aarch64"
+      instanceType: "m6g.xlarge"
+
+  - label: ":buildah: Building Container Images for AMD64"
+    branches: "*"
+    command: |
+      buildah --version
+      drivah build --changed-since=main ./.buildkite/containers/amd64
+    agents:
+      provider: "aws"
+      imagePrefix: "drivah-ubuntu-2204-aarch64"
+      instanceType: "m6g.xlarge"
