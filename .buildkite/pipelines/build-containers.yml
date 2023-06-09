@@ -10,8 +10,8 @@ steps:
       buildah --version
       drivah build --changed-since=main ./.buildkite/containers/arm64
 
-  - label: ":buildah: Building Container Images for AMD64"
-    branches: "*"
-    command: |
-      buildah --version
-      drivah build --changed-since=main ./.buildkite/containers/amd64
+  # - label: ":buildah: Building Container Images for AMD64"
+  #   branches: "*"
+  #   command: |
+  #     buildah --version
+  #     drivah build --changed-since=main ./.buildkite/containers/amd64
