@@ -1,0 +1,13 @@
+[container.image]
+names = ["docker.elastic.co/ci-agent-images/kibana/custom-nodejs-builder"]
+tags = ["amd64-0.1"]
+
+[container.image.build_args]
+GROUP_ID = 1000
+USER_ID = 1000
+
+[docker]
+build_flags = [
+    "--progress=plain",
+    "--platform=linux/amd64"
+]
