@@ -4,7 +4,7 @@ set -euo pipefail
 TARGET_VERSION="18.15.0"
 TARGET_NODE_VERSION="v$TARGET_VERSION"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
-BUILD_IMAGE_NAME="docker.io/elastic/nodejs-custom:$TARGET_VERSION"
+BUILD_IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION"
 
 if [[ "$ARCH" == "arm64" || "$ARCH" == "amd64" ]]; then
   # we're good, supported architecture
