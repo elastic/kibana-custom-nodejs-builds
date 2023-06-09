@@ -6,6 +6,7 @@ steps:
       instanceType: m6g.xlarge
       imagePrefix: drivah-ubuntu-2204-aarch64
     command: |
+      cat /etc/containers/registries.conf
       uname -m
       buildah --version
       drivah build --changed-since=main ./containers/arm64
