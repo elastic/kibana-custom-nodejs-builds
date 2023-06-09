@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 centos:7
+FROM arm64v8/centos:7
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
