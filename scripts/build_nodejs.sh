@@ -14,27 +14,24 @@ else
   exit 1
 fi
 
-echo "--- Listing docker images"
-docker image ls
-
-
 echo '--- Downloading node source'
 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
   https://nodejs.org/download/release/$TARGET_NODE_VERSION/node-$TARGET_NODE_VERSION.tar.xz
 tar -xf ./workdir/src/node-$TARGET_NODE_VERSION.tar.xz -C ./workdir/src
+chmod -R a+rwx ./workdir/
 
 
 if [[ "$ARCH" == "arm64" ]]; then
   echo '--- Buidling node for linux/arm64'
   docker run --rm -it --platform linux/arm64 \
-    -v ./workdir:/home/node/workdir \
+    -v ./workdir:/home/node/workdir:Z \
     $BUILD_IMAGE_NAME \
     $RELEASE_URL_BASE \
     $TARGET_NODE_VERSION
 elif [[  "$ARCH" == "amd64" ]]; then
   echo '--- Buidling node for linux/amd64'
   docker run --rm -it --platform linux/amd64 \
-    -v ./workdir:/home/node/workdir \
+    -v ./workdir:/home/node/workdir:Z \
     $BUILD_IMAGE_NAME \
     $RELEASE_URL_BASE \
     $TARGET_NODE_VERSION
