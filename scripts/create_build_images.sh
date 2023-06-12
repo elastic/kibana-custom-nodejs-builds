@@ -12,8 +12,7 @@ if [[ $(docker buildx ls | grep multiarch | wc -l) -lt 1 ]]; then
   docker buildx create --name multiarch --driver docker-container --use
 fi
 
-# TARGET_PLATFORMS="linux/amd64,linux/arm64"
-TARGET_PLATFORMS="linux/amd64"
+TARGET_PLATFORMS="linux/amd64,linux/arm64"
 
 echo "--- Building node.js build images"
 DOCKER_BUILDKIT=1 docker buildx build --progress=plain  \

@@ -2,30 +2,19 @@ agents:
   queue: kibana-default
 
 steps:
-  # - command: scripts/docker_login.sh
+  - command: scripts/create_build_images.sh
 
-  # - wait
+  - wait
 
   - command:
-      - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
     label: Create build images
     env:
       ARCH: amd64
-    timeout_in_minutes: 100
-    retry:
-      automatic:
-        - exit_status: '*'
-          limit: 1
+    timeout_in_minutes: 300
 
-  # - wait
-
-  # - command: scripts/build_nodejs.sh
-  #   env:
-  #     ARCH: arm64
-  #   label: Build node.js
-  #   timeout_in_minutes: 100
-  #   retry:
-  #     automatic:
-  #       - exit_status: '*'
-  #         limit: 1
+  - command: scripts/build_nodejs.sh
+    env:
+      ARCH: arm64
+    label: Build node.js
+    timeout_in_minutes: 600
