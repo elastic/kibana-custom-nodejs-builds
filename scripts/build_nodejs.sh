@@ -25,15 +25,15 @@ tar -xf ./workdir/src/node-$TARGET_NODE_VERSION.tar.xz -C ./workdir/src
 
 
 if [[ "$ARCH" == "arm64" ]]; then
-  echo '--- Buidling node for linux/amd64'
-  docker run --rm -it --platform linux/amd64 \
+  echo '--- Buidling node for linux/arm64'
+  docker run --rm -it --platform linux/arm64 \
     -v ./workdir:/home/node/workdir \
     $BUILD_IMAGE_NAME \
     $RELEASE_URL_BASE \
     $TARGET_NODE_VERSION
 elif [[  "$ARCH" == "amd64" ]]; then
-  echo '--- Buidling node for linux/arm64'
-  docker run --rm -it --platform linux/arm64 \
+  echo '--- Buidling node for linux/amd64'
+  docker run --rm -it --platform linux/amd64 \
     -v ./workdir:/home/node/workdir \
     $BUILD_IMAGE_NAME \
     $RELEASE_URL_BASE \
