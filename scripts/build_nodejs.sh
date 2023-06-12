@@ -14,6 +14,9 @@ else
   exit 1
 fi
 
+echo "--- Listing docker images"
+docker image ls
+
 
 echo '--- Downloading node source'
 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
