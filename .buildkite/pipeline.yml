@@ -2,13 +2,12 @@ agents:
   queue: kibana-default
 
 steps:
-  - command: scripts/docker_login.sh
+  # - command: scripts/docker_login.sh
 
-  - wait
+  # - wait
 
   - command:
       - scripts/create_build_images.sh
-      - docker image inspect docker.io/elastic/nodejs-custom:18.15.0 | grep Arch
     label: Create build images
     timeout_in_minutes: 100
     retry:
@@ -20,7 +19,7 @@ steps:
 
   - command: scripts/build_nodejs.sh
     env:
-      ARCH: arm64
+      ARCH: amd64
     label: Build node.js
     timeout_in_minutes: 100
     retry:
@@ -28,14 +27,14 @@ steps:
         - exit_status: '*'
           limit: 1
 
-  - wait
+  # - wait
 
-  - command: scripts/build_nodejs.sh
-    env:
-      ARCH: arm64
-    label: Build node.js
-    timeout_in_minutes: 100
-    retry:
-      automatic:
-        - exit_status: '*'
-          limit: 1
+  # - command: scripts/build_nodejs.sh
+  #   env:
+  #     ARCH: arm64
+  #   label: Build node.js
+  #   timeout_in_minutes: 100
+  #   retry:
+  #     automatic:
+  #       - exit_status: '*'
+  #         limit: 1
