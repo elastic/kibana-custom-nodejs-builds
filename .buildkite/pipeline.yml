@@ -8,19 +8,10 @@ steps:
 
   - command:
       - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
     label: Create build images
-    timeout_in_minutes: 100
-    retry:
-      automatic:
-        - exit_status: '*'
-          limit: 1
-
-  - wait
-
-  - command: scripts/build_nodejs.sh
     env:
       ARCH: amd64
-    label: Build node.js
     timeout_in_minutes: 100
     retry:
       automatic:
