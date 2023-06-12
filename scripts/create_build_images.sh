@@ -31,7 +31,7 @@ if [[ "$ARCH" == "arm64" ]]; then
     --load \
     --tag $IMAGE_NAME \
     $DOCKER_BUILD_CONTEXT_DIR
-elif [[ "$ARCH" == "arm64" ]]; then
+elif [[ "$ARCH" == "amd64" ]]; then
   echo "--- Building node.js build images (amd64)"
   DOCKER_BUILDKIT=1 docker buildx build --progress=plain  \
     --platform $TARGET_PLATFORM \

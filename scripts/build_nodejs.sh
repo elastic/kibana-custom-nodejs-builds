@@ -4,7 +4,6 @@ set -euo pipefail
 TARGET_VERSION="18.15.0"
 TARGET_NODE_VERSION="v$TARGET_VERSION"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
-BUILD_IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION"
 
 if [[ "$ARCH" == "arm64" || "$ARCH" == "amd64" ]]; then
   # we're good, supported architecture
@@ -13,6 +12,8 @@ else
   echo "ARCH (=$ARCH) env variable is not one of: arm64, amd64"
   exit 1
 fi
+
+BUILD_IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION-$ARCH"
 
 echo '--- Downloading node source'
 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
