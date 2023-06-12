@@ -13,6 +13,9 @@ else
   architecture="arm64"
 fi
 
+ls -la  "/home/node/workdir/src/"
+ls -la  "/home/node/workdir/src/node-${full_version}"
+
 cd "/home/node/workdir/src/node-${full_version}"
 
 # Compile from source
