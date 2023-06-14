@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+
+
+echo "Before:"
+git config --list | cat
+
+git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+git config --global --add remote.origin.url."git@github.com:".insteadOf "https://github.com/"
+
+echo "After:"
+git config --list | cat
