@@ -1,33 +1,21 @@
 steps:
-  # - command: scripts/create_build_images.sh
-  #   label: Creating build images
-  #   env:
-  #     ARCH: amd64
-  #   agents:
-  #     queue: kibana-default
-
-  - command: scripts/create_build_images.sh
+  - command:
+      - which gsutil
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_artifacts.sh
     label: Creating build images
     env:
-      ARCH: arm64
+      ARCH: amd64
+      TARGET_VERSION: 18.15.0
     agents:
-      queue: macos-arm
-
-  - wait
+      queue: kibana-default
 
   # - command:
+  #     - scripts/create_build_images.sh
   #     - scripts/build_nodejs.sh
-  #   label: Building node.js
+  #   label: Creating build images
   #   env:
-  #     ARCH: amd64
-  #   timeout_in_minutes: 300
+  #     ARCH: arm64
   #   agents:
-  #     queue: kibana-default
-
-  - command: scripts/build_nodejs.sh
-    env:
-      ARCH: arm64
-    label: Build node.js
-    timeout_in_minutes: 600
-    agents:
-      queue: macos-arm
+  #     queue: macos-arm
