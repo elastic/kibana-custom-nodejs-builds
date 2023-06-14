@@ -1,16 +1,17 @@
-agents:
-  queue: kibana-default
-
 steps:
   # - command: scripts/create_build_images.sh
   #   label: Creating build images
   #   env:
   #     ARCH: amd64
+  #   agents:
+  #     queue: kibana-default
 
   - command: scripts/create_build_images.sh
     label: Creating build images
     env:
       ARCH: arm64
+    agents:
+      queue: macos-arm
 
   - wait
 
@@ -20,9 +21,13 @@ steps:
   #   env:
   #     ARCH: amd64
   #   timeout_in_minutes: 300
+  #   agents:
+  #     queue: kibana-default
 
   - command: scripts/build_nodejs.sh
     env:
       ARCH: arm64
     label: Build node.js
     timeout_in_minutes: 600
+    agents:
+      queue: macos-arm
