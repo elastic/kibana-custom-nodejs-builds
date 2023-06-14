@@ -1,6 +1,5 @@
 steps:
   - command:
-      - gsutil cp -r ./README.md gs://kibana-custom-node-artifacts/
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_artifacts.sh
@@ -10,12 +9,19 @@ steps:
       TARGET_VERSION: 18.15.0
     agents:
       queue: kibana-default
+    timeout_in_minutes: 300 # 5 hrs
 
-  # - command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #   label: Creating build images
-  #   env:
-  #     ARCH: arm64
-  #   agents:
-  #     queue: macos-arm
+
+  - command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_artifacts.sh
+    label: Creating build images
+    env:
+      ARCH: amd64
+      TARGET_VERSION: 18.15.0
+    agents:
+      # queue: macos-arm # disabled while the git cloning doesn't work
+      queue: kibana-default # cross-compiling takes a while
+    timeout_in_minutes: 800 # 12+ hrs
+
