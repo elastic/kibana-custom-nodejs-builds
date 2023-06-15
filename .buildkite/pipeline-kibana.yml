@@ -21,7 +21,7 @@ steps:
       ARCH: amd64
       TARGET_VERSION: 18.15.0
     agents:
-      # queue: macos-arm # disabled while the git cloning doesn't work
-      queue: kibana-default # cross-compiling takes a while
+      queue: macos-arm # disabled while the git cloning doesn't work
+      # queue: kibana-default # cross-compiling takes a while
     timeout_in_minutes: 800 # 12+ hrs
 
