@@ -1,15 +1,18 @@
 steps:
+  - command: echo "OK"
+    label: Blank command, placeholder
+
   # - command: scripts/create_build_images.sh
   #   label: Creating build images
   #   env:
   #     ARCH: amd64
 
-  - command: scripts/create_build_images.sh
-    label: Creating build images
-    env:
-      ARCH: arm64
+  # - command: scripts/create_build_images.sh
+  #   label: Creating build images
+  #   env:
+  #     ARCH: arm64
 
-  - wait
+  # - wait
 
   # - command:
   #     - scripts/build_nodejs.sh
@@ -18,8 +21,8 @@ steps:
   #     ARCH: amd64
   #   timeout_in_minutes: 300
 
-  - command: scripts/build_nodejs.sh
-    env:
-      ARCH: arm64
-    label: Build node.js
-    timeout_in_minutes: 600
+  # - command: scripts/build_nodejs.sh
+  #   env:
+  #     ARCH: arm64
+  #   label: Build node.js
+  #   timeout_in_minutes: 600
