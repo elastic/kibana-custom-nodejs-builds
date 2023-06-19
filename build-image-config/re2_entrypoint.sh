@@ -51,6 +51,7 @@ npm run build --if-present
 npm test
 
 mkdir -p /home/node/workdir/dist/
+chmod a+w /home/node/workdir/dist
 cp "${re2_source_folder}/build/Release/re2.node" "/home/node/workdir/dist/linux-${architecture}-108"
 gzip -f "/home/node/workdir/dist/linux-${architecture}-108"
 chmod a+rwx /home/node/workdir/dist/*

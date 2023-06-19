@@ -34,5 +34,6 @@ make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   CONFIG_FLAGS="$config_flags"
 
 mkdir -p /home/node/workdir/dist/
+chmod a+w /home/node/workdir/dist
 mv node-*.tar.?z /home/node/workdir/dist/
 chmod a+rwx /home/node/workdir/dist/*
