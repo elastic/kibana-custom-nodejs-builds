@@ -13,10 +13,6 @@ else
   architecture="arm64"
 fi
 
-ls -la  "/"
-ls -la  "/home/"
-ls -la  "/home/node/"
-ls -la  "/home/node/workdir/"
 ls -la  "/home/node/workdir/src"
 ls -la  "/home/node/workdir/src/node-${full_version}"
 

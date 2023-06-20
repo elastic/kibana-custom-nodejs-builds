@@ -19,7 +19,6 @@ curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
   https://nodejs.org/download/release/$TARGET_NODE_VERSION/node-$TARGET_NODE_VERSION.tar.xz
 tar -xf ./workdir/src/node-$TARGET_NODE_VERSION.tar.xz -C ./workdir/src
 chmod -R a+rwx ./workdir/
-chmod -R a+rwx ./workdir/src
 
 
 echo "--- Buidling node for $TARGET_PLATFORM"
