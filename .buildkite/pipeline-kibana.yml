@@ -1,15 +1,15 @@
 steps:
-  # - command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #     - scripts/upload_artifacts.sh
-  #   label: Build node.js 18 with glibc 2.17 for x64
-  #   env:
-  #     ARCH: amd64
-  #     TARGET_VERSION: 18.15.0
-  #   agents:
-  #     queue: kibana-default
-  #   timeout_in_minutes: 300 # 5 hrs
+  - command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_artifacts.sh
+    label: Build node.js 18 with glibc 2.17 for x64
+    env:
+      ARCH: amd64
+      TARGET_VERSION: 18.15.0
+    agents:
+      queue: kibana-default
+    timeout_in_minutes: 300 # 5 hrs
 
 
   - command:
