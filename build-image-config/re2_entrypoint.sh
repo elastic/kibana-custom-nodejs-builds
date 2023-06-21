@@ -46,9 +46,9 @@ export CXX="ccache g++"
 
 . /opt/rh/devtoolset-9/enable
 
-npm i --unsafe-perm=true
-npm run build --if-present
-npm test
+$npm_binary i --unsafe-perm=true
+$npm_binary run build --if-present
+$npm_binary test
 
 mkdir -p /home/node/workdir/dist/
 chmod a+w /home/node/workdir/dist
