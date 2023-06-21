@@ -3,8 +3,8 @@ steps:
 
     command:
       - scripts/create_build_images.sh
-      # - scripts/build_nodejs.sh
-      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_nodejs_artifacts.sh
       - scripts/build_re2.sh
       - scripts/upload_re2_artifacts.sh
     env:
@@ -16,11 +16,13 @@ steps:
     timeout_in_minutes: 300 # 5 hrs
 
 
-  # - command:
+  # - label: Build node.js 18 with glibc 2.17 for arm64
+  #   command:
   #     - scripts/create_build_images.sh
   #     - scripts/build_nodejs.sh
-  #     - scripts/upload_artifacts.sh
-  #   label: Build node.js 18 with glibc 2.17 for arm64
+  #     - scripts/upload_nodejs_artifacts.sh
+  #     - scripts/build_re2.sh
+  #     - scripts/upload_re2_artifacts.sh
   #   env:
   #     ARCH: arm64
   #     TARGET_VERSION: 18.16.0

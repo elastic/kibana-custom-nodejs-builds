@@ -28,7 +28,6 @@ export CXX="ccache g++"
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \
   ARCH="$architecture" \
-  VARIATION="glibc-217" \
   DISTTYPE="release" \
   RELEASE_URLBASE="$release_url_base" \
   CONFIG_FLAGS="$config_flags"
