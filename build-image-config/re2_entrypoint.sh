@@ -7,6 +7,8 @@ re2_full_version="$1"
 node_full_version="$2"
 node_download_base_url="$3"
 
+VARIATION="glibc-217"
+
 if [[ $(arch) == x86_64 ]]; then
   architecture="x64";
 else
@@ -26,6 +28,16 @@ if [ ! -f "$npm_binary" ]; then
     fi
 
     tar -xf "/home/node/workdir/${node_folder_name}.tar.xz"
+
+    EXTRACTED_DIR_NAME=$(ls /home/node/workdir | grep $node_folder_name | grep -v "tar")
+
+    if [[ "$EXTRACTED_DIR_NAME" == "$node_folder_name" ]]; then
+      # OK, no variation name to remove
+      echo "Extracted folder $node_folder_name"
+    else
+      mv /home/node/workdir/$EXTRACTED_DIR_NAME /home/node/workdir/$node_folder_name
+      echo "Extracted folder $EXTRACTED_DIR_NAME, renamed to $node_folder_name"
+    fi
 fi
 
 cd src
