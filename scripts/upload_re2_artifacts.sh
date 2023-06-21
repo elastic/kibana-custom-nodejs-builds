@@ -4,7 +4,7 @@ set -euo pipefail
 BUCKET_NAME="kibana-custom-node-artifacts"
 RE2_FULL_VERSION=${RE2_VERSION:-1.17.7} # $1
 ARTIFACT_BASE_PATH="re2-glibc-217/v$RE2_FULL_VERSION/"
-ARTIFACT_DIST_DIR="./workdir/dist"
+ARTIFACT_DIST_DIR="./workdir_re2/dist"
 
 # echo "--- Removing variant tags from file names"
 # for name in $(ls $ARTIFACT_DIST_DIR | grep tar); do

@@ -14,9 +14,10 @@ NODE_DOWNLOAD_BASE_URL="https://storage.cloud.google.com/kibana-custom-node-arti
 TARGET_PLATFORM="linux/$ARCH"
 
 echo "--- Building RE2 for $TARGET_PLATFORM"
-chmod -R a+rwx ./workdir/
+mkdir -p ./workdir_re2/
+chmod -R a+rwx ./workdir_re2/
 docker run --rm -it --platform $TARGET_PLATFORM --entrypoint /home/node/re2_entrypoint.sh \
-  -v ./workdir:/home/node/workdir \
+  -v ./workdir_re2:/home/node/workdir \
   $BUILD_IMAGE_NAME \
   $RE2_FULL_VERSION \
   $NODE_FULL_VERSION \
