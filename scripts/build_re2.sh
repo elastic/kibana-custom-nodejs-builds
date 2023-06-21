@@ -8,13 +8,13 @@ source ./scripts/common.sh
 assert_correct_arch $ARCH
 
 BUILD_IMAGE_NAME="nodejs-custom:$TARGET_VERSION"
-RE2_FULL_VERSION="1.17.7" # $1
+RE2_FULL_VERSION=${RE2_VERSION:-1.17.7} # $1
 NODE_FULL_VERSION="v$TARGET_VERSION" # $2
 NODE_DOWNLOAD_BASE_URL="https://storage.cloud.google.com/kibana-custom-node-artifacts/node-glibc-217/dist/v$TARGET_VERSION/"
 TARGET_PLATFORM="linux/$ARCH"
 
-
 echo "--- Building RE2 for $TARGET_PLATFORM"
+chmod -R a+rwx ./workdir/
 docker run --rm -it --platform $TARGET_PLATFORM --entrypoint /home/node/re2_entrypoint.sh \
   -v ./workdir:/home/node/workdir \
   $BUILD_IMAGE_NAME \

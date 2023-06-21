@@ -1,26 +1,31 @@
 steps:
-  - command:
+  - label: Build node.js 18 with glibc 2.17 for x64
+
+    command:
       - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_artifacts.sh
-    label: Build node.js 18 with glibc 2.17 for x64
+      # - scripts/build_nodejs.sh
+      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/build_re2.sh
+      - scripts/upload_re2_artifacts.sh
     env:
       ARCH: amd64
       TARGET_VERSION: 18.16.0
+      RE2_VERSION: 1.17.7
     agents:
-      queue: c2-60
+      queue: c2-16
     timeout_in_minutes: 300 # 5 hrs
 
 
-  - command:
-      - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_artifacts.sh
-    label: Build node.js 18 with glibc 2.17 for arm64
-    env:
-      ARCH: arm64
-      TARGET_VERSION: 18.16.0
-    agents:
-      # queue: macos-arm # disabled while the git cloning doesn't work
-      queue: c2-60 # cross-compiling takes a while, 13 hours is not enough :/
-    timeout_in_minutes: 800 # 12+ hrs
+  # - command:
+  #     - scripts/create_build_images.sh
+  #     - scripts/build_nodejs.sh
+  #     - scripts/upload_artifacts.sh
+  #   label: Build node.js 18 with glibc 2.17 for arm64
+  #   env:
+  #     ARCH: arm64
+  #     TARGET_VERSION: 18.16.0
+  #     RE2_VERSION: 1.17.7
+  #   agents:
+  #     # queue: macos-arm # disabled while the git cloning doesn't work
+  #     queue: c2-60 # cross-compiling takes a while, 13 hours is not enough :/
+  #   timeout_in_minutes: 800 # 12+ hrs
