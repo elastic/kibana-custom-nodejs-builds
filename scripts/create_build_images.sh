@@ -8,7 +8,7 @@ source ./scripts/common.sh
 assert_correct_arch $ARCH
 
 TARGET_PLATFORM="linux/$ARCH"
-IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION-$ARCH"
+IMAGE_NAME=$(get_build_image_name)
 SCRIPT_DIR=$(dirname $0)
 DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../build-image-config/"
 

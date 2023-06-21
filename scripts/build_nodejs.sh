@@ -8,7 +8,7 @@ source ./scripts/common.sh
 assert_correct_arch $ARCH
 
 TARGET_NODE_VERSION="v$TARGET_VERSION"
-BUILD_IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION-$ARCH"
+BUILD_IMAGE_NAME=$(get_build_image_name)
 TARGET_PLATFORM="linux/$ARCH"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
 

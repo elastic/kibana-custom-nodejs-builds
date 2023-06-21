@@ -7,7 +7,7 @@ source ./scripts/common.sh
 # ARCH provided in env
 assert_correct_arch $ARCH
 
-BUILD_IMAGE_NAME="docker.elastic.co/elastic/nodejs-custom:$TARGET_VERSION"
+BUILD_IMAGE_NAME=$(get_build_image_name)
 RE2_FULL_VERSION=${RE2_VERSION:-1.17.7} # $1
 NODE_FULL_VERSION="v$TARGET_VERSION" # $2
 NODE_DOWNLOAD_BASE_URL="https://storage.cloud.google.com/kibana-custom-node-artifacts/node-glibc-217/dist/v$TARGET_VERSION/"
