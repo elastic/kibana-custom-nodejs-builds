@@ -64,7 +64,7 @@ function replace_shasums_in_folder() {
     fi
   done
 
-  cd -
+  echo "`pwd`/SHASUMS256.txt updated"
 
-  echo "SHASUM256.txt updated."
+  cd -
 }

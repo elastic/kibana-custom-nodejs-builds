@@ -1,4 +1,5 @@
 .vscode
 .idea
 
-workdir
+workdir/
+workdir_re2/

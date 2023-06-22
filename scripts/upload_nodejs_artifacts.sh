@@ -18,8 +18,8 @@ SHASUMS_LOCATION="https://nodejs.org/dist/v$TARGET_VERSION/SHASUMS256.txt"
 
 echo "--- Replacing SHASUMS256.txt entries"
 retry 5 10 curl -fsSLO $SHASUMS_LOCATION
-mv SHASUMS256.txt ./workdir/SHASUMS256.txt
-replace_shasums_in_folder ./workdir
+mv SHASUMS256.txt $ARTIFACT_DIST_DIR/SHASUMS256.txt
+replace_shasums_in_folder $ARTIFACT_DIST_DIR
 
 echo "--- Uploading build artifacts"
 gsutil cp -r "$ARTIFACT_DIST_DIR/*" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH
