@@ -21,5 +21,5 @@ retry 5 10 curl -fsSLO $SHASUMS_LOCATION
 mv SHASUMS256.txt ./workdir/SHASUMS256.txt
 replace_shasums_in_folder ./workdir
 
-# echo "--- Uploading build artifacts"
-# gsutil cp -r "$ARTIFACT_DIST_DIR/*" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH
+echo "--- Uploading build artifacts"
+gsutil cp -r "$ARTIFACT_DIST_DIR/*" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH

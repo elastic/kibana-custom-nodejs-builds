@@ -45,7 +45,7 @@ cd src
 ## Download re2 source if needed.
 re2_source_folder="/home/node/workdir/src/node-re2-${re2_full_version}"
 if [ ! -d "$re2_source_folder" ]; then
-    git clone --recurse-submodules --depth 1 --branch 1.17.4 https://github.com/uhop/node-re2.git "${re2_source_folder}"
+    git clone --recurse-submodules --depth 1 --branch $re2_full_version https://github.com/uhop/node-re2.git "${re2_source_folder}"
 fi
 
 cd "$re2_source_folder"
