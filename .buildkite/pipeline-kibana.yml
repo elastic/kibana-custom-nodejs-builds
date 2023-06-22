@@ -3,36 +3,36 @@ env:
   RE2_VERSION: 1.17.7
 
 steps:
-  - label: Build node.js 18 with glibc 2.17 for x64
-    command:
-      - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
-    env:
-      ARCH: amd64
-    agents:
-      queue: c2-16
-    timeout_in_minutes: 300 # 5 hrs
+  # - label: Build node.js 18 with glibc 2.17 for x64
+  #   command:
+  #     - scripts/create_build_images.sh
+  #     - scripts/build_nodejs.sh
+  #     - scripts/upload_nodejs_artifacts.sh
+  #     - scripts/build_re2.sh
+  #     - scripts/upload_re2_artifacts.sh
+  #   env:
+  #     ARCH: amd64
+  #   agents:
+  #     queue: c2-16
+  #   timeout_in_minutes: 300 # 5 hrs
 
-  - label: Build node.js 18 with glibc 2.17 for arm64
-    command:
-      - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
-    env:
-      ARCH: arm64
-    agents:
-      # queue: macos-arm # disabled while the git cloning doesn't work
-      queue: c2-60 # cross-compiling takes a while
-    timeout_in_minutes: 720 # 12 hrs
+  # - label: Build node.js 18 with glibc 2.17 for arm64
+  #   command:
+  #     - scripts/create_build_images.sh
+  #     - scripts/build_nodejs.sh
+  #     - scripts/upload_nodejs_artifacts.sh
+  #     - scripts/build_re2.sh
+  #     - scripts/upload_re2_artifacts.sh
+  #   env:
+  #     ARCH: arm64
+  #   agents:
+  #     # queue: macos-arm # disabled while the git cloning doesn't work
+  #     queue: c2-60 # cross-compiling takes a while
+  #   timeout_in_minutes: 720 # 12 hrs
 
-  - wait
+  # - wait
 
   - label: Fix SHASUMS256.txt with newly built files' hashes
-    command: node replace_sha_hashes.js
+    command: scripts/replace_sha_hashes.sh
     agents:
       queue: kibana-default
