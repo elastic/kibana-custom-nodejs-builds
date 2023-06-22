@@ -58,7 +58,7 @@ function replace_shasums_in_folder() {
       # Replace hashes in SHASUMS256.txt
       node -e """
         lines = fs.readFileSync('SHASUMS256.txt').toString().split('\n')
-        output = lines.map(l => l.endsWith('$file') ? '$new_sha256\t$file' : l)
+        output = lines.map(l => l.endsWith('$file') ? '$new_sha256  $file' : l)
         fs.writeFileSync('SHASUMS256.txt', output.join('\n'))
       """
     fi
