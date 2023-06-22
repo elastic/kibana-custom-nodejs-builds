@@ -15,7 +15,7 @@ RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
 echo "Running node.js build in folder: `pwd`"
 
 echo '--- Downloading node source'
-curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
+retry 5 15 curl --create-dirs --output-dir ./workdir/src -fsSLO --compressed \
   https://nodejs.org/download/release/$TARGET_NODE_VERSION/node-$TARGET_NODE_VERSION.tar.xz
 tar -xf ./workdir/src/node-$TARGET_NODE_VERSION.tar.xz -C ./workdir/src
 chmod -R a+rwx ./workdir/
