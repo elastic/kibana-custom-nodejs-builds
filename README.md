@@ -38,7 +38,7 @@ Most of the buildkite logic is sheltered in the [scripts](./scripts/) directory.
 ## Context
 During development, we found some more information that can be helpful as context, should anyone find this repo again
 
- - This repository is only needed until
+ - This repository is only needed while
    - centos:7 / RHEL7 is supported by Elastic, and we ship node.js with Kibana
    - the unofficial-builds repo accepts a linux/arm64 build (https://github.com/nodejs/unofficial-builds/pull/83)
  - The created Docker images needn't be pushed
