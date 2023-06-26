@@ -10,7 +10,7 @@ assert_correct_arch $ARCH
 BUILD_IMAGE_NAME=$(get_build_image_name)
 RE2_FULL_VERSION=${RE2_VERSION:-1.17.7} # $1
 NODE_FULL_VERSION="v$TARGET_VERSION" # $2
-NODE_DOWNLOAD_BASE_URL="https://storage.googleapis.com/kibana-custom-node-artifacts/node-glibc-217/dist/v$TARGET_VERSION"
+NODE_DOWNLOAD_BASE_URL="https://storage.googleapis.com/$BUCKET_NAME/node-glibc-217/dist/v$TARGET_VERSION"
 TARGET_PLATFORM="linux/$ARCH"
 
 echo "--- Building RE2 for $TARGET_PLATFORM"

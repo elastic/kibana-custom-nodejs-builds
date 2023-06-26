@@ -1,4 +1,6 @@
 
+BUCKET_NAME="kibana-custom-node-artifacts"
+
 function assert_correct_arch() {
   ARCH=$1
 

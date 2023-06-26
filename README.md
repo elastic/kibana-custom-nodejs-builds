@@ -31,7 +31,7 @@ The docker image uses mounted directories as working directories, as well as out
 
 
 ## Scripts for running the builds
-Most of the buildkite logic is sheltered in the [scripts](./scripts/) directory.
+Most of the `buildkite` logic is sheltered in the [scripts](./scripts/) directory.
 
 
 
