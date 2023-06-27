@@ -8,21 +8,3 @@ metadata:
   links:
     - title: Pipeline
       url: https://buildkite.com/elastic/kibana-custom-nodejs-builds
-
-spec:
-  type: buildkite-pipeline
-  owner: group:kibana-operations
-  system: buildkite
-  implementation:
-    apiVersion: buildkite.elastic.dev/v1
-    kind: Pipeline
-    metadata:
-      name: kibana-custom-nodejs-builds
-    spec:
-      repository: elastic/kibana-custom-nodejs-builds
-      pipeline_file: ".buildkite/pipeline.yml"
-      teams:
-        kibana-operations:
-          access_level: MANAGE_BUILD_AND_READ
-        everyone:
-          access_level: READ_ONLY
