@@ -11,7 +11,7 @@ steps:
       ARCH: amd64
     agents:
       queue: c2-16
-    timeout_in_minutes: 300 # 5 hrs
+    timeout_in_minutes: 60 # ideally runs in ~30m
 
   - label: Build node.js 18 with glibc 2.17 for arm64
     command:
@@ -21,9 +21,8 @@ steps:
     env:
       ARCH: arm64
     agents:
-      # queue: macos-arm # disabled while the git cloning doesn't work
       queue: c2-60 # cross-compiling takes a while
-    timeout_in_minutes: 720 # 12 hrs
+    timeout_in_minutes: 180 # ideally runs in ~2hr
 
   - wait
 
