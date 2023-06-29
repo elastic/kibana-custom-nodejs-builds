@@ -3,7 +3,7 @@ env:
 
 steps:
   - label: Annotate build with node version
-    command: buildkite-agent annotate "node.js v$${OVERRIDE_TARGET_VERSION:-TARGET_VERSION} with glibc 2.17" --style 'info'
+    command: buildkite-agent annotate "node.js v$${OVERRIDE_TARGET_VERSION:-$$TARGET_VERSION} with glibc 2.17" --style 'info'
     agents:
       queue: kibana-default
 

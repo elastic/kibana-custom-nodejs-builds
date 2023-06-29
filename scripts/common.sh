@@ -1,7 +1,7 @@
 
 BUCKET_NAME="kibana-custom-node-artifacts"
 
-export TARGET_VERSION=${OVERRIDE_TARGET_VERSION:-TARGET_VERSION}
+export TARGET_VERSION=${OVERRIDE_TARGET_VERSION:-$TARGET_VERSION}
 
 function assert_correct_arch() {
   ARCH=$1
