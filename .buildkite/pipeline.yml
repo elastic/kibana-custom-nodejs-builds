@@ -4,7 +4,7 @@ env:
 steps:
   - label: Build custom node.js artifacts with glibc 2.17 for x64
     command:
-      - export TARGET_VERSION=$${OVERRIDE_TARGET_VERSION:TARGET_VERSION}
+      - export TARGET_VERSION=$${OVERRIDE_TARGET_VERSION:-TARGET_VERSION}
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
@@ -16,7 +16,7 @@ steps:
 
   - label: Build custom node.js artifacts with glibc 2.17 for arm64
     command:
-      - export TARGET_VERSION=$${OVERRIDE_TARGET_VERSION:TARGET_VERSION}
+      - export TARGET_VERSION=$${OVERRIDE_TARGET_VERSION:-TARGET_VERSION}
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
