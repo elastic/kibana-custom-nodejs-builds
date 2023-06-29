@@ -7,14 +7,11 @@ source ./scripts/common.sh
 # ARCH provided in env
 assert_correct_arch $ARCH
 
-set -x
 TARGET_PLATFORM="linux/$ARCH"
 IMAGE_NAME=$(get_build_image_name)
 SCRIPT_DIR=$(dirname $0)
 DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../build-image-config/"
-set +x
 
-exit 1
 
 echo "--- Creating multiarch driver"
 if [[ $(docker buildx ls | grep multiarch | wc -l) -lt 1 ]]; then
