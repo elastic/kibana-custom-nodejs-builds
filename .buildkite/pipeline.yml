@@ -13,7 +13,7 @@ steps:
       queue: c2-16
     timeout_in_minutes: 60 # ideally runs in ~30m
 
-  - label: Build node.js 18 with glibc 2.17 for arm64
+  - label: Build custom node.js artifacts with glibc 2.17 for arm64
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
