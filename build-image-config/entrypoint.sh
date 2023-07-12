@@ -5,13 +5,16 @@ set -x
 
 release_url_base="$1"
 full_version="$2"
-config_flags=${3:-""} #"--without-dtrace --without-npm --without-etw"
+config_flags=${3:-""}
 
 if [[ $(arch) == x86_64 ]]; then
   architecture="x64";
 else
   architecture="arm64"
 fi
+
+ls -la  "/home/node/workdir/src"
+ls -la  "/home/node/workdir/src/node-${full_version}"
 
 cd "/home/node/workdir/src/node-${full_version}"
 
@@ -25,10 +28,11 @@ export CXX="ccache g++"
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \
   ARCH="$architecture" \
-  VARIATION="glibc-217" \
   DISTTYPE="release" \
   RELEASE_URLBASE="$release_url_base" \
   CONFIG_FLAGS="$config_flags"
 
 mkdir -p /home/node/workdir/dist/
+chmod a+w /home/node/workdir/dist
 mv node-*.tar.?z /home/node/workdir/dist/
+chmod a+rwx /home/node/workdir/dist/*
