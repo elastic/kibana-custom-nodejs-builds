@@ -5,7 +5,7 @@ set -x
 
 release_url_base="$1"
 full_version="$2"
-config_flags=${3:-""}
+config_flags=${3:-""} #"--without-dtrace --without-npm --without-etw"
 
 if [[ $(arch) == x86_64 ]]; then
   architecture="x64";

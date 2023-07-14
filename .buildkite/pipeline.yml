@@ -1,5 +1,6 @@
 env:
   TARGET_VERSION: 18.16.1
+  RE2_VERSION: 1.17.7
 
 steps:
   - label: Annotate build with node version
@@ -12,6 +13,8 @@ steps:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
+      - scripts/build_re2.sh
+      - scripts/upload_re2_artifacts.sh
     env:
       ARCH: amd64
     agents:
@@ -23,6 +26,8 @@ steps:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
+      - scripts/build_re2.sh
+      - scripts/upload_re2_artifacts.sh
     env:
       ARCH: arm64
     agents:
