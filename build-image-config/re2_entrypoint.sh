@@ -20,6 +20,7 @@ mkdir -p src/
 ## Download and unpack Node.js binary if needed.
 node_folder_name="node-${node_full_version}-linux-${architecture}"
 npm_binary="/home/node/workdir/${node_folder_name}/bin/npm"
+node_binary="/home/node/workdir/${node_folder_name}/bin/node"
 if [ ! -f "$npm_binary" ]; then
     if [ ! -f "/home/node/workdir/$node_folder_name.tar.xz" ]; then
         curl -fsSLO --compressed "${node_download_base_url}/${node_folder_name}.tar.xz"
@@ -50,8 +51,10 @@ $npm_binary i --unsafe-perm=true
 $npm_binary run build --if-present
 $npm_binary test
 
+node_modules_version=$($node_binary -e 'console.log(process.versions.modules)')
+
 mkdir -p /home/node/workdir/dist/
 chmod a+w /home/node/workdir/dist
-cp "${re2_source_folder}/build/Release/re2.node" "/home/node/workdir/dist/linux-${architecture}-108"
-gzip -f "/home/node/workdir/dist/linux-${architecture}-108"
+cp "${re2_source_folder}/build/Release/re2.node" "/home/node/workdir/dist/linux-${architecture}-${node_modules_version}"
+gzip -f "/home/node/workdir/dist/linux-${architecture}-${node_modules_version}"
 chmod a+rwx /home/node/workdir/dist/*
