@@ -22,6 +22,7 @@ RUN ulimit -n 1024 \
          glibc-devel
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
+COPY --chown=node:node re2_entrypoint.sh /home/node/re2_entrypoint.sh
 
 USER node
 

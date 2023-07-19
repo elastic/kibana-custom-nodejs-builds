@@ -13,6 +13,7 @@ Export some env variables required for the builds
 ```sh
   export ARCH="arm64"
   export TARGET_VERSION="18.16.1"
+  export RE2_VERSION="1.17.7"
 ```
 
 Then run individual scripts locally:
