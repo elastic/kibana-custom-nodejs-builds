@@ -45,8 +45,7 @@ During development, we found some more information that can be helpful as contex
      - Ubuntu 16.04 / 18.04 / 20.04
      - OpenSUSE 15
      - SLES 12
-     - Debian 8
-     - Debian 9
+     - Debian 8 / 9
      - Amazon Linux 2
    - Until the `unofficial-builds` repo accepts a linux/arm64 build (https://github.com/nodejs/unofficial-builds/pull/83)
  - The created Docker images needn't be pushed
