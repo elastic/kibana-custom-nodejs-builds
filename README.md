@@ -38,9 +38,17 @@ Most of the `buildkite` logic is sheltered in the [scripts](./scripts/) director
 ## Context
 During development, we found some more information that can be helpful as context, should anyone find this repo again
 
- - This repository is only needed while
-   - centos:7 / RHEL7 is supported by Elastic, and we ship node.js with Kibana
-   - the unofficial-builds repo accepts a linux/arm64 build (https://github.com/nodejs/unofficial-builds/pull/83)
+ - This repository is only needed...
+   - While any of the following Linux distributions are included in the [Kibana support-matrix](https://www.elastic.co/support/matrix#matrix_kubernetes)
+     - CentOS/RHEL 7
+     - Oracle Enterprise Linux 7
+     - Ubuntu 16.04 / 18.04 / 20.04
+     - OpenSUSE 15
+     - SLES 12
+     - Debian 8
+     - Debian 9
+     - Amazon Linux 2
+   - Until the `unofficial-builds` repo accepts a linux/arm64 build (https://github.com/nodejs/unofficial-builds/pull/83)
  - The created Docker images needn't be pushed
    - they can be used once for the build, then rebuilt in case we need to run it again
  - I decided to remove the `VARIATION` attribute on the node.js:
