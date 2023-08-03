@@ -12,8 +12,8 @@ You can run most scripts locally on Mac/Linux. You'll need a few of the build/in
 Export some env variables required for the builds
 ```sh
   export ARCH="arm64"
-  export TARGET_VERSION="18.16.1"
-  export RE2_VERSION="1.17.7"
+  export TARGET_VERSION="18.17.0"
+  export RE2_VERSION="1.20.1"
 ```
 
 Then run individual scripts locally:
