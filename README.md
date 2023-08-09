@@ -22,7 +22,7 @@ You should see the job starting up two tasks in parallel. Those are the (node.js
 All the artifacts will be uploaded to this bucket: [kibana-custom-node-artifacts](https://console.cloud.google.com/storage/browser/kibana-custom-node-artifacts;tab=objects?forceOnBucketsSortingFiltering=true&project=elastic-kibana-184716&supportedpurview=project&prefix=&forceOnObjectsSortingFiltering=false&pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22)))
 
 ### How to use these builds in Kibana?
-- First, follow the guide for upgrading node.js for Kibana: https://www.elastic.co/guide/en/kibana/8.9/upgrading-nodejs.html
+- First, follow the guide for upgrading node.js for Kibana: https://www.elastic.co/guide/en/kibana/current/upgrading-nodejs.html
 - Second, if you've updated RE2 versions, make sure to update the expected download hashes around in the [patch_native_modules_task.ts](https://github.com/elastic/kibana/blob/4c41247f938fcfde404a151a0b1193f3f5898cb1/src/dev/build/tasks/patch_native_modules_task.ts#L43)
 - Finally, keep in mind that your requests for downloading these resources will probably go through the [kibana-proxy-cache](https://github.com/elastic/kibana-ci-proxy-cache/), if you're reading this in 2026 you might need to update that code as well :)
 
