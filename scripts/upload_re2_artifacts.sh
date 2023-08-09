@@ -3,7 +3,7 @@ set -euo pipefail
 
 source ./scripts/common.sh
 
-RE2_FULL_VERSION=${RE2_VERSION:-1.17.7} # $1
+RE2_FULL_VERSION=$RE2_VERSION # $1
 ARTIFACT_BASE_PATH="re2-glibc-217/$RE2_FULL_VERSION/"
 ARTIFACT_DIST_DIR="./workdir_re2/dist"
 
