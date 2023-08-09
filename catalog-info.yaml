@@ -5,6 +5,7 @@ kind: Resource
 metadata:
   name: buildkite-pipeline-kibana-custom-nodejs-builds
   description: Buildkite Pipeline for kibana-custom-nodejs-builds
+  owner: group:kibana-operations
   links:
     - title: Pipeline
       url: https://buildkite.com/elastic/kibana-custom-nodejs-builds
