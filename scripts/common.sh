@@ -73,3 +73,13 @@ function replace_shasums_in_folder() {
 
   cd -
 }
+
+function list_shasums_in_folder() {
+  local dirname=$1
+
+  echo --- Sha256 checksums for files in $dirname
+  for file in $(ls $dirname); do
+    local full_filename="$dirname/$file"
+    shasum -a 256 $full_filename
+  done
+}
