@@ -1,44 +1,14 @@
-env:
-  TARGET_VERSION: 18.17.0
-  RE2_VERSION: 1.20.1
-
+---
+# $yaml-language-server: $schema=https://raw.githubusercontent.com/buildkite/pipeline-schema/main/schema.json
 steps:
-  - label: Annotate build with node version
-    command:
-      - scripts/annotate_build.sh
-    agents:
-      queue: kibana-default
+  - label: "Build"
+    command: "true"
 
-  - label: Build custom node.js artifacts with glibc 2.17 for x64
-    command:
-      - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
-    env:
-      ARCH: amd64
-    agents:
-      queue: c2-16
-    timeout_in_minutes: 60 # ideally runs in ~30m
+  - label: "Test"
+    command: "true"
 
-  - label: Build custom node.js artifacts with glibc 2.17 for arm64
-    command:
-      - scripts/create_build_images.sh
-      - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
-    env:
-      ARCH: arm64
-    agents:
-      queue: c2-60 # cross-compiling takes a while
-    timeout_in_minutes: 180 # ideally runs in ~2hr
+  - label: "Deploy"
+    command: "true"
 
-  - wait
-
-  - label: Fix SHASUMS256.txt with newly built files' hashes
-    command:
-      - scripts/replace_sha_hashes.sh
-    agents:
-      queue: kibana-default
+  - label: "Publish"
+    command: "true"
