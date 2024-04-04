@@ -16,6 +16,11 @@ fi
 ls -la  "/home/node/workdir/src"
 ls -la  "/home/node/workdir/src/node-${full_version}"
 
+# See https://github.com/nodejs/unofficial-builds/commit/6853f5477ca0b8bce8d141e9b8670f7ad679cac2
+cd "/home/node/workdir/src/node-${fullversion}"/deps/cares/config/linux
+sed -i 's/define HAVE_SYS_RANDOM_H 1/undef HAVE_SYS_RANDOM_H/g' ./ares_config.h
+sed -i 's/define HAVE_GETRANDOM 1/undef HAVE_GETRANDOM/g' ./ares_config.h
+
 cd "/home/node/workdir/src/node-${full_version}"
 
 # Compile from source
