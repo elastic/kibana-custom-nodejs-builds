@@ -10,7 +10,6 @@ ARTIFACT_DIST_DIR="./workdir_re2/dist"
 list_shasums_in_folder $ARTIFACT_DIST_DIR
 
 echo "--- Uploading build artifacts"
-echo "--- Uploading build artifacts"
 if [[ "${DRY_RUN:-}" == "1" || "${DRY_RUN:-}" == "true" ]]; then
   echo "Dry run enabled, skipping upload"
   exit 0
