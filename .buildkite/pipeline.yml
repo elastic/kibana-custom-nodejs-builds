@@ -15,7 +15,7 @@ steps:
       - scripts/build_re2.sh
       - scripts/upload_re2_artifacts.sh
     env:
-      ARCH: amd64
+      TARGET_ARCH: amd64
     agents:
       image: family/kibana-ubuntu-2004
       imageProject: elastic-images-qa
@@ -31,7 +31,7 @@ steps:
       - scripts/build_re2.sh
       - scripts/upload_re2_artifacts.sh
     env:
-      ARCH: arm64
+      TARGET_ARCH: arm64
     agents:
       image: family/kibana-ubuntu-2004
       imageProject: elastic-images-qa

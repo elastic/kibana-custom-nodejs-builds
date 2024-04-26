@@ -4,14 +4,14 @@ set -euo pipefail
 source ./scripts/common.sh
 
 # TARGET_VERSION provided in env
-# ARCH provided in env
-assert_correct_arch $ARCH
+# TARGET_ARCH provided in env
+assert_correct_arch $TARGET_ARCH
 
 BUILD_IMAGE_NAME=$(get_build_image_name)
 RE2_FULL_VERSION=$RE2_VERSION # $1
 NODE_FULL_VERSION="v$TARGET_VERSION" # $2
 NODE_DOWNLOAD_BASE_URL="https://storage.googleapis.com/$BUCKET_NAME/node-glibc-217/dist/v$TARGET_VERSION"
-TARGET_PLATFORM="linux/$ARCH"
+TARGET_PLATFORM="linux/$TARGET_ARCH"
 
 echo "--- Building RE2 for $TARGET_PLATFORM"
 mkdir -p ./workdir_re2/
