@@ -4,12 +4,12 @@ set -euo pipefail
 source ./scripts/common.sh
 
 # TARGET_VERSION provided in env
-# ARCH provided in env
-assert_correct_arch $ARCH
+# TARGET_ARCH provided in env
+assert_correct_arch $TARGET_ARCH
 
 TARGET_NODE_VERSION="v$TARGET_VERSION"
 BUILD_IMAGE_NAME=$(get_build_image_name)
-TARGET_PLATFORM="linux/$ARCH"
+TARGET_PLATFORM="linux/$TARGET_ARCH"
 RELEASE_URL_BASE="https://unofficial-builds.nodejs.org/download/release/"
 
 echo "Running node.js build in folder: `pwd`"

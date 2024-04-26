@@ -5,20 +5,20 @@ export TARGET_VERSION=${OVERRIDE_TARGET_VERSION:-$TARGET_VERSION}
 export RE2_VERSION=${OVERRIDE_RE2_VERSION:-$RE2_VERSION}
 
 function assert_correct_arch() {
-  ARCH=$1
+  TARGET_ARCH=$1
 
-  if [[ "$ARCH" == "arm64" || "$ARCH" == "amd64" ]]; then
+  if [[ "$TARGET_ARCH" == "arm64" || "$TARGET_ARCH" == "amd64" ]]; then
     # we're good, supported architecture
-    echo "Building for architecture: $ARCH"
+    echo "Building for architecture: $TARGET_ARCH"
   else
-    echo "ARCH (=$ARCH) env variable is not one of: arm64, amd64"
+    echo "TARGET_ARCH (=$TARGET_ARCH) env variable is not one of: arm64, amd64"
     exit 1
   fi
 }
 
 function get_build_image_name() {
   NODE_VERSION=${1:-$TARGET_VERSION}
-  PLATFORM=${2:-$ARCH}
+  PLATFORM=${2:-$TARGET_ARCH}
 
   echo "docker.elastic.co/elastic/nodejs-custom:$NODE_VERSION-$PLATFORM"
 }
