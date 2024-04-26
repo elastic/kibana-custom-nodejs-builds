@@ -7,4 +7,5 @@ ARTIFACT_BASE_PATH="re2-glibc-217/test/"
 
 echo "POTATO MåN" > test.txt 
 
+activate_service_account
 gsutil cp -r "test.txt" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH
