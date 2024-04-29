@@ -10,6 +10,9 @@ SHASUMS_LOCATION="https://nodejs.org/dist/v$TARGET_VERSION/SHASUMS256.txt"
 
 ARTIFACT_DIST_DIR="./workdir/download"
 
+echo "--- Activating service account"
+activate_service_account
+
 echo "--- Downloading node.js $TARGET_VERSION glibc-217 artifacts"
 mkdir -p $ARTIFACT_DIST_DIR
 
