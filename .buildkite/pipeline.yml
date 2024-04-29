@@ -6,7 +6,7 @@ steps:
   - label: Annotate build with node version
     command:
       - scripts/annotate_build.sh
-
+  
   - label: Build custom node.js artifacts with glibc 2.17 for x64
     command:
       - scripts/create_build_images.sh

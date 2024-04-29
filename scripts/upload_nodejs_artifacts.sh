@@ -15,5 +15,6 @@ if [[ "${DRY_RUN:-}" == "1" || "${DRY_RUN:-}" == "true" ]]; then
   echo "Dry run enabled, skipping upload"
   exit 0
 else
+  activate_service_account
   gsutil cp -r "$ARTIFACT_DIST_DIR/*" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH
 fi
