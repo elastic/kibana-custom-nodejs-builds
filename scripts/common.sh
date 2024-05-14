@@ -84,8 +84,16 @@ function list_shasums_in_folder() {
   done
 }
 
-# Activates buildkite-agent service account to be able to upload artifacts to GCS
-GCS_SA_KEY=$(vault read -field=key secret/ci/elastic-kibana-custom-nodejs-builds/custom-node-artifacts-service-account-key | base64 -d)
+# Get and store the key, as later steps might have an expired vault token
+if [[ -f "/tmp/gcs_sa_key.json" ]]; then
+  echo "Using GCS service account key from /tmp/gcs_sa_key.json"
+  GCS_SA_KEY=$(cat /tmp/gcs_sa_key.json)
+else
+  echo "Fetching GCS service account key from vault"
+  GCS_SA_KEY=$(vault read -field=key secret/ci/elastic-kibana-custom-nodejs-builds/custom-node-artifacts-service-account-key | base64 -d)
+  echo $GCS_SA_KEY > /tmp/gcs_sa_key.json # cache the key for future use
+fi
+
 function activate_service_account() {
   gcloud auth activate-service-account --key-file <(echo $GCS_SA_KEY)
 }
