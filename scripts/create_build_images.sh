@@ -10,7 +10,7 @@ assert_correct_arch $TARGET_ARCH
 TARGET_PLATFORM="linux/$TARGET_ARCH"
 IMAGE_NAME=$(get_build_image_name)
 SCRIPT_DIR=$(dirname $0)
-DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../build-image-config/"
+DOCKER_BUILD_CONTEXT_DIR="$SCRIPT_DIR/../pointer-compression/"
 
 
 echo "--- Creating multiarch driver"

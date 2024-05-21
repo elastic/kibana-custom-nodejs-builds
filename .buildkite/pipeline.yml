@@ -11,9 +11,9 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
+      # - scripts/upload_nodejs_artifacts.sh
+      # - scripts/build_re2.sh
+      # - scripts/upload_re2_artifacts.sh
     env:
       TARGET_ARCH: amd64
     agents:
@@ -27,9 +27,9 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
+      # - scripts/upload_nodejs_artifacts.sh
+      # - scripts/build_re2.sh
+      # - scripts/upload_re2_artifacts.sh
     env:
       TARGET_ARCH: arm64
     agents:
