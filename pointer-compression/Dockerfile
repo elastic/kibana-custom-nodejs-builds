@@ -1,8 +1,5 @@
 FROM ubuntu:24.04
 
-ARG GID=1001
-ARG UID=1001
-
 RUN apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get install -y software-properties-common \
@@ -10,7 +7,6 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y \
          git \
-         adduser \
          g++ \
          curl \
          make \
@@ -20,12 +16,9 @@ RUN apt-get update \
          ccache \
          xz-utils
 
-RUN addgroup --gid $GID node \
-    && adduser --gid $GID --uid $UID --disabled-password --gecos node node
+COPY --chown=ubuntu:ubuntu entrypoint.sh /home/node/entrypoint.sh
 
-COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
-
-USER node
+USER ubuntu
 
 VOLUME /home/node/workdir
 
