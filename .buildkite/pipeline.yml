@@ -1,6 +1,6 @@
 env:
-  TARGET_VERSION: 18.17.0
-  RE2_VERSION: 1.20.1
+  TARGET_VERSION: 20.13.1
+  RE2_VERSION: 1.20.9
 
 steps:
   - label: Annotate build with node version
