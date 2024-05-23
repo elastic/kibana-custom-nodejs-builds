@@ -5,7 +5,7 @@ source ./scripts/common.sh
 
 # TARGET_VERSION provided in env
 
-ARTIFACT_BASE_PATH="node-glibc-217/dist/v$TARGET_VERSION"
+ARTIFACT_BASE_PATH="node-pointer-compression/dist/v$TARGET_VERSION"
 SHASUMS_LOCATION="https://nodejs.org/dist/v$TARGET_VERSION/SHASUMS256.txt"
 
 ARTIFACT_DIST_DIR="./workdir/download"
