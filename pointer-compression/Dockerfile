@@ -1,5 +1,8 @@
 FROM ubuntu:24.04
 
+ARG GID=1000
+ARG UID=1000
+
 RUN apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get install -y software-properties-common \
@@ -16,9 +19,12 @@ RUN apt-get update \
          ccache \
          xz-utils
 
-COPY --chown=ubuntu:ubuntu entrypoint.sh /home/node/entrypoint.sh
+RUN addgroup --gid $GID node \
+    && adduser --gid $GID --uid $UID --disabled-password --gecos node node
 
-USER ubuntu
+COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
+
+USER node
 
 VOLUME /home/node/workdir
 
