@@ -11,7 +11,7 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/upload_nodejs_artifacts.sh
       # - scripts/build_re2.sh
       # - scripts/upload_re2_artifacts.sh
     env:
@@ -27,7 +27,7 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/upload_nodejs_artifacts.sh
       # - scripts/build_re2.sh
       # - scripts/upload_re2_artifacts.sh
     env:
