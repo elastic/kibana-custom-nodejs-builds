@@ -21,7 +21,7 @@ steps:
       image: family/kibana-ubuntu-2004
       provider: gcp
       machineType: c2-standard-16
-    timeout_in_minutes: 60
+    timeout_in_minutes: 60 # ideally runs in ~30m
 
   - label: Build custom node.js artifacts with glibc 2.17 for arm64
     command:
@@ -38,7 +38,7 @@ steps:
       imageProject: elastic-images-qa
       provider: gcp
       machineType: c2-standard-60
-    timeout_in_minutes: 180
+    timeout_in_minutes: 180 # ideally runs in ~2hr
 
   - label: Build custom node.js artifacts with pointer compression for x64
     command:
@@ -52,7 +52,7 @@ steps:
       image: family/kibana-ubuntu-2004
       provider: gcp
       machineType: c2-standard-16
-    timeout_in_minutes: 60
+    timeout_in_minutes: 60 # ideally runs in ~30m
 
   - label: Build custom node.js artifacts with pointer compressionfor arm64
     command:
@@ -66,7 +66,7 @@ steps:
       image: family/kibana-ubuntu-2004
       provider: gcp
       machineType: c2-standard-60
-    timeout_in_minutes: 180
+    timeout_in_minutes: 180 # ideally runs in ~2hr
 
   - wait
 
