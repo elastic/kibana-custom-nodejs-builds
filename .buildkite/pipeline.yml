@@ -54,7 +54,7 @@ steps:
       machineType: c2-standard-16
     timeout_in_minutes: 60 # ideally runs in ~30m
 
-  - label: Build custom node.js artifacts with pointer compressionfor arm64
+  - label: Build custom node.js artifacts with pointer compression for arm64
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
@@ -70,7 +70,7 @@ steps:
 
   - wait
 
-  - label: Fix SHASUMS256.txt with newly built files' hashes
+  - label: Fix SHASUMS256.txt with newly built files' hashes with glibc 2.17
     command:
       - scripts/replace_sha_hashes.sh
     env:
@@ -80,7 +80,7 @@ steps:
       provider: gcp
       machineType: n2-standard-2
 
-  - label: Fix SHASUMS256.txt with newly built files' hashes
+  - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
     command:
       - scripts/replace_sha_hashes.sh
     env:
