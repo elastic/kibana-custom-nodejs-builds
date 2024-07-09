@@ -9,7 +9,7 @@ ARG USER_ID=1000
 RUN groupadd --force --gid $GROUP_ID node
 RUN adduser --gid $GROUP_ID --uid $USER_ID node
 
-RUN ulimit -n 1024 \
+RUN ulimit -n 1024 && \
     rpm --import https://repo.cloudlinux.com/cloudlinux/security/RPM-GPG-KEY-CloudLinux && \
     yum-config-manager --add-repo https://repo.cloudlinux.com/cloudlinux/7/sclo/devtoolset-9/x86_64/ && \
     yum install -y epel-release  && \
