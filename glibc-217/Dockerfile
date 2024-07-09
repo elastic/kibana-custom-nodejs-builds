@@ -14,7 +14,7 @@ RUN ulimit -n 1024 && \
     yum-config-manager --add-repo https://repo.cloudlinux.com/cloudlinux/7/sclo/devtoolset-9/x86_64/ && \
     yum install -y epel-release  && \
     yum upgrade -y && \
-    yum install -y && \
+    yum install -y \
         git \
         curl \
         make \
