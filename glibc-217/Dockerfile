@@ -12,10 +12,8 @@ RUN adduser --gid $GROUP_ID --uid $USER_ID node
 
 RUN ulimit -n 1024 \
     && yum install -y epel-release  \
-    && yum install -y centos-release-scl \
-    && yum-config-manager --enable centos-sclo-rh \
-    && yum -y update --setopt=skip_if_unavailable=true \
-    && yum clean all \
+    && yum install -y centos-release-scl-rh \
+    && yum upgrade -y \
     && yum install -y \
         git \
         curl \
@@ -26,8 +24,6 @@ RUN ulimit -n 1024 \
         xz-utils \
         devtoolset-9 \
         glibc-devel
-
-RUN scl enable devtoolset-9 bash
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
 COPY --chown=node:node re2_entrypoint.sh /home/node/re2_entrypoint.sh
