@@ -1,8 +1,8 @@
 FROM centos:7
 
-RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-* \
-    && sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-* \
-    && sed -i -e "s|mirror.centos.org|vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+RUN sed -i -e "s|mirror.centos.org|vault.centos.org|g" /etc/yum.repos.d/*.repo \ 
+    && sed -i -e "s|^#.*baseurl=|baseurl=|g" /etc/yum.repos.d/*.repo \
+    && sed -i -e "s|^mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/*.repo
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
