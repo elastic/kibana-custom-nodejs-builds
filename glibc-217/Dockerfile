@@ -4,6 +4,7 @@ RUN echo "[centos-sclo-rh]" > /etc/yum.repos.d/centos-release-scl-rh.repo \
     && echo "name=CentOS-7 - SCLo rh" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
     && echo "baseurl=http://vault.centos.org/centos/7/sclo/\$basearch/rh/" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
     && echo "gpgcheck=1" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
+    && echo "enabled=1" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
     && echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo" >> /etc/yum.repos.d/centos-release-scl-rh.repo
 
 RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-* \
