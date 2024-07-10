@@ -1,13 +1,7 @@
 FROM centos:7
 
-RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-Base.repo
-RUN if [ "$(uname -m)" == "x86_64" ]; then \
-      echo "Running on x64 architecture"; \
-      sed -i -e 's!#baseurl=http://mirror.centos.org/centos/\$releasever!baseurl=https://vault.centos.org/7.9.2009/!g' /etc/yum.repos.d/CentOS-Base.repo; \
-    else \
-      echo "Running on non-x64 architecture"; \
-      sed -i 's|#baseurl=http://mirror.centos.org/altarch/\$releasever/|baseurl=http://vault.centos.org/altarch/7.9.2009/|' /etc/yum.repos.d/CentOS-Base.repo; \
-    fi
+RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-Base.repo \
+    && sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo
     
 RUN cat /etc/yum.repos.d/*.repo
 
@@ -26,10 +20,10 @@ RUN ulimit -n 1024 \
 RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 RUN if [ "$(uname -m)" == "x86_64" ]; then \
       echo "Running on x64 architecture"; \
-      sed -i -e 's!#baseurl=http://mirror.centos.org/centos/\$releasever!baseurl=https://vault.centos.org/7.9.2009/!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
+      sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
     else \
       echo "Running on non-x64 architecture"; \
-      sed -i 's|#baseurl=http://mirror.centos.org/altarch/\$releasever/|baseurl=http://vault.centos.org/altarch/7.9.2009/|' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
+      sed -i -e 's|#baseurl=http://mirror.centos.org/centos|baseurl=http://vault.centos.org/altarch|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
     fi
 
 RUN cat /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
