@@ -1,10 +1,5 @@
 FROM centos:7
 
-RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-Base.repo \
-    && sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo
-    
-RUN cat /etc/yum.repos.d/*.repo
-
 ARG GROUP_ID=1000
 ARG USER_ID=1000
 
@@ -12,23 +7,21 @@ RUN groupadd --force --gid $GROUP_ID node
 RUN adduser --gid $GROUP_ID --uid $USER_ID node
 
 RUN ulimit -n 1024 \
-    && yum update -y \
-    && yum clean all \
-    && yum install -y epel-release  \
-    && yum install -y centos-release-scl-rh
-
-RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
-RUN if [ "$(uname -m)" == "x86_64" ]; then \
-      echo "Running on x64 architecture"; \
+    && sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-* \
+    && if [ "$(uname -m)" == "x86_64" ]; then \
+      sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*; \
+    else \
+      sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org/altarch|g' /etc/yum.repos.d/CentOS-*; \
+    fi \
+    && yum install -y epel-release \
+    && yum install -y centos-release-scl-rh \
+    && sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo \
+    && if [ "$(uname -m)" == "x86_64" ]; then \
       sed -i -e 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
     else \
-      echo "Running on non-x64 architecture"; \
       sed -i -e 's|#baseurl=http://mirror.centos.org/centos|baseurl=http://vault.centos.org/altarch|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
-    fi
-
-RUN cat /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
-    
-RUN yum upgrade -y \
+    fi \
+    && yum upgrade -y \
     && yum install -y \
         git \
         curl \
@@ -36,7 +29,7 @@ RUN yum upgrade -y \
         python2 \
         python3 \
         ccache \
-        xz-utils \
+        xz \
         devtoolset-9 \
         glibc-devel
 
