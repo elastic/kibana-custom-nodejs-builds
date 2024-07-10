@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-Base.repo
 RUN if [ "$(uname -m)" == "x86_64" ]; then \
       echo "Running on x64 architecture"; \
       sed -i -e 's!#baseurl=http://mirror.centos.org/centos/\$releasever!baseurl=https://vault.centos.org/7.9.2009/!g' /etc/yum.repos.d/CentOS-Base.repo; \
@@ -8,8 +8,7 @@ RUN if [ "$(uname -m)" == "x86_64" ]; then \
       echo "Running on non-x64 architecture"; \
       sed -i 's|#baseurl=http://mirror.centos.org/altarch/\$releasever/|baseurl=http://vault.centos.org/altarch/7.9.2009/|' /etc/yum.repos.d/CentOS-Base.repo; \
     fi
-RUN sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
-
+    
 RUN cat /etc/yum.repos.d/*.repo
 
 ARG GROUP_ID=1000
@@ -22,8 +21,20 @@ RUN ulimit -n 1024 \
     && yum update -y \
     && yum clean all \
     && yum install -y epel-release  \
-    && yum install -y centos-release-scl-rh \
-    && yum upgrade -y \
+    && yum install -y centos-release-scl-rh
+
+RUN sed -i -e 's!mirrorlist!#mirrorlist!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+RUN if [ "$(uname -m)" == "x86_64" ]; then \
+      echo "Running on x64 architecture"; \
+      sed -i -e 's!#baseurl=http://mirror.centos.org/centos/\$releasever!baseurl=https://vault.centos.org/7.9.2009/!g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
+    else \
+      echo "Running on non-x64 architecture"; \
+      sed -i 's|#baseurl=http://mirror.centos.org/altarch/\$releasever/|baseurl=http://vault.centos.org/altarch/7.9.2009/|' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
+    fi
+
+RUN cat /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+    
+RUN yum upgrade -y \
     && yum install -y \
         git \
         curl \
