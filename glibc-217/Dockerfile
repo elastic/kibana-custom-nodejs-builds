@@ -1,17 +1,16 @@
 FROM centos:7
 
-RUN echo "[centos-sclo-rh]" > /etc/yum.repos.d/centos-release-scl-rh.repo \
-    && echo "name=CentOS-7 - SCLo rh" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
-    && echo "baseurl=http://vault.centos.org/centos/7/sclo/\$basearch/rh/" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
-    && echo "gpgcheck=1" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
-    && echo "enabled=1" >> /etc/yum.repos.d/centos-release-scl-rh.repo \
-    && echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo" >> /etc/yum.repos.d/centos-release-scl-rh.repo
-
-RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-* \
-    && sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
+RUN sed -i -e "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-*
+RUN if [ "$(uname -m)" == "x86_64" ]; then \
+      echo "Running on x64 architecture"; \
+      sed -i -e 's!#baseurl=http://mirror.centos.org/centos/\$releasever!baseurl=https://vault.centos.org/7.9.2009/!g' /etc/yum.repos.d/CentOS-Base.repo; \
+    else \
+      echo "Running on non-x64 architecture"; \
+      sed -i 's|#baseurl=http://mirror.centos.org/altarch/\$releasever/|baseurl=http://vault.centos.org/altarch/7.9.2009/|' /etc/yum.repos.d/CentOS-Base.repo; \
+    fi
+RUN sed -i -e "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g" /etc/yum.repos.d/CentOS-*
 
 RUN cat /etc/yum.repos.d/*.repo
-RUN cat /etc/yum.repos.d/centos-release-scl-rh.repo
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
@@ -20,6 +19,7 @@ RUN groupadd --force --gid $GROUP_ID node
 RUN adduser --gid $GROUP_ID --uid $USER_ID node
 
 RUN ulimit -n 1024 \
+    && yum update -y \
     && yum clean all \
     && yum install -y epel-release  \
     && yum install -y centos-release-scl-rh \
