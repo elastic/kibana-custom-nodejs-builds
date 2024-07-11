@@ -19,15 +19,15 @@ RUN ulimit -n 1024 \
     fi \
     && yum upgrade -y \
     && yum install -y \
-        git \
-        curl \
-        make \
-        python2 \
-        python3 \
-        ccache \
-        xz \
-        devtoolset-9 \
-        glibc-devel
+         git \
+         curl \
+         make \
+         python2 \
+         python3 \
+         ccache \
+         xz-utils \
+         devtoolset-9 \
+         glibc-devel
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
 COPY --chown=node:node re2_entrypoint.sh /home/node/re2_entrypoint.sh
