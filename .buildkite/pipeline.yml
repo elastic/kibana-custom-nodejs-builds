@@ -1,6 +1,5 @@
 env:
-  TARGET_VERSION: 20.13.1
-  RE2_VERSION: 1.20.9
+  TARGET_VERSION: 20.15.1
 
 steps:
   - label: Annotate build with node version
@@ -12,8 +11,6 @@ steps:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
     env:
       TARGET_ARCH: amd64
       TARGET_VARIANT: 'glibc-217'
@@ -28,8 +25,6 @@ steps:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
       - scripts/upload_nodejs_artifacts.sh
-      - scripts/build_re2.sh
-      - scripts/upload_re2_artifacts.sh
     env:
       TARGET_ARCH: arm64
       TARGET_VARIANT: 'glibc-217'
