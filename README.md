@@ -1,29 +1,30 @@
 # kibana-custom-nodejs-builds
 Contains configuration and sources to build node.js
 
-The main use case right now is building `node.js@18+` with `glibc@2.17`, which is required for some older platforms. (More context: https://github.com/nodejs/unofficial-builds/pull/69)
+The main use case right now is building `node.js@18+` with `glibc@2.17`, which is required for some older platforms. (More context: https://github.com/nodejs/unofficial-builds/pull/69). Aside from that, and more recently, a new usage for that work appeared and it is now also supporting our efforts of using the pointer compression feature of node.js for our serverless docker image.
 
 ## How to generate a new build?
 We have a kibana-flavored buildkite job that does most of the work for building these distributables, by running the scripts in this repo. You can find the job here: https://buildkite.com/elastic/kibana-custom-node-dot-js-builds - [configured here](https://github.com/elastic/kibana-buildkite/blob/main/pipelines/kibana-custom-node-build.tf).
 
 ### Build on a branch
-You can either create a new branch, where you set the new default values for the Node & re2 versions, and run a new build on that branch (or get the PR merged, and run a build on `main`). See [this PR](https://github.com/elastic/kibana-custom-nodejs-builds/pull/8) for reference.
+You can either create a new branch, where you set the new default value for the Node, and run a new build on that branch (or get the PR merged, and run a build on `main`). See [this PR](https://github.com/elastic/kibana-custom-nodejs-builds/pull/8) for reference.
 
 ### Build with override parameters
 Or you can set override parameters on buildkite when starting the job:
 ```
 OVERRIDE_TARGET_VERSION=18.17.0
-OVERRIDE_RE2_VERSION=1.20.1
 ```
 
+### Warning :warning:
+If there are native modules going into production along with Kibana, each of them should be built custom along the builds we provide on this repo both for `glic-217` and `pointer-compression` modes.
+
 ### What happens after?
-You should see the job starting up two tasks in parallel. Those are the (node.js + re2) builds per platform. The arm64 cross-compilation takes a while, but once they're done, we also create a `SHASUMS256.txt` based on the original version's hashes, but updating the entries for our custom-built versions.
+You should see the job starting up two tasks in parallel. Those are the (glibc-217 + pointerc compression) builds per platform. The arm64 cross-compilation takes a while, but once they're done, we also create a `SHASUMS256.txt` based on the original version's hashes, but updating the entries for our custom-built versions.
 
 All the artifacts will be uploaded to this bucket: [kibana-custom-node-artifacts](https://console.cloud.google.com/storage/browser/kibana-custom-node-artifacts;tab=objects?forceOnBucketsSortingFiltering=true&project=elastic-kibana-184716&supportedpurview=project&prefix=&forceOnObjectsSortingFiltering=false&pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22)))
 
 ### How to use these builds in Kibana?
 - First, follow the guide for upgrading node.js for Kibana: https://www.elastic.co/guide/en/kibana/current/upgrading-nodejs.html
-- Second, if you've updated RE2 versions, make sure to update the expected download hashes around in the [patch_native_modules_task.ts](https://github.com/elastic/kibana/blob/4c41247f938fcfde404a151a0b1193f3f5898cb1/src/dev/build/tasks/patch_native_modules_task.ts#L43)
 - Finally, keep in mind that your requests for downloading these resources will probably go through the [kibana-proxy-cache](https://github.com/elastic/kibana-ci-proxy-cache/), if you're reading this in 2026 you might need to update that code as well :)
 
 
@@ -37,7 +38,6 @@ Export some env variables required for the builds
 ```sh
   export TARGET_ARCH="arm64" # or amd64
   export TARGET_VERSION="18.17.0"
-  export RE2_VERSION="1.20.1"
 ```
 
 Then run any of the individual scripts locally:
