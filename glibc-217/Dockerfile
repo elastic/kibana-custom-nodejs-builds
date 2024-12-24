@@ -23,10 +23,10 @@ RUN ulimit -n 1024 \
          curl \
          make \
          python2 \
-         python3 \
+         rh-python38 \
          ccache \
          xz-utils \
-         devtoolset-9 \
+         devtoolset-10 \
          glibc-devel
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh

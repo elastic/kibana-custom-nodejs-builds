@@ -20,8 +20,8 @@ cd "/home/node/workdir/src/node-${full_version}"
 
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export CC="ccache gcc"
-export CXX="ccache g++"
+export CC="ccache gcc-12"
+export CXX="ccache g++-12"
 
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \
