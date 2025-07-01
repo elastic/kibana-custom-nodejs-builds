@@ -35,35 +35,33 @@ steps:
       machineType: c2-standard-60
     timeout_in_minutes: 180 # ideally runs in ~2hr
 
-  # See https://github.com/nodejs/node/issues/54531
-  # - label: Build custom node.js artifacts with pointer compression for x64
-  #   command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #     - scripts/upload_nodejs_artifacts.sh
-  #   env:
-  #     TARGET_ARCH: amd64
-  #     TARGET_VARIANT: 'pointer-compression'
-  #   agents:
-  #     image: family/kibana-ubuntu-2004
-  #     provider: gcp
-  #     machineType: c2-standard-16
-  #   timeout_in_minutes: 60 # ideally runs in ~30m
+  - label: Build custom node.js artifacts with pointer compression for x64
+    command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_nodejs_artifacts.sh
+    env:
+      TARGET_ARCH: amd64
+      TARGET_VARIANT: 'pointer-compression'
+    agents:
+      image: family/kibana-ubuntu-2004
+      provider: gcp
+      machineType: c2-standard-16
+    timeout_in_minutes: 60 # ideally runs in ~30m
 
-  # See https://github.com/nodejs/node/issues/54531
-  # - label: Build custom node.js artifacts with pointer compression for arm64
-  #   command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #     - scripts/upload_nodejs_artifacts.sh
-  #   env:
-  #     TARGET_ARCH: arm64
-  #     TARGET_VARIANT: 'pointer-compression'
-  #   agents:
-  #     image: family/kibana-ubuntu-2004
-  #     provider: gcp
-  #     machineType: c2-standard-60
-  #   timeout_in_minutes: 180 # ideally runs in ~2hr
+  - label: Build custom node.js artifacts with pointer compression for arm64
+    command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_nodejs_artifacts.sh
+    env:
+      TARGET_ARCH: arm64
+      TARGET_VARIANT: 'pointer-compression'
+    agents:
+      image: family/kibana-ubuntu-2004
+      provider: gcp
+      machineType: c2-standard-60
+    timeout_in_minutes: 180 # ideally runs in ~2hr
 
   - wait
 
@@ -77,13 +75,12 @@ steps:
       provider: gcp
       machineType: n2-standard-2
 
-  # See https://github.com/nodejs/node/issues/54531
-  # - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
-  #   command:
-  #     - scripts/replace_sha_hashes.sh
-  #   env:
-  #     TARGET_VARIANT: 'pointer-compression'
-  #   agents:
-  #     image: family/kibana-ubuntu-2004
-  #     provider: gcp
-  #     machineType: n2-standard-2
+  - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
+    command:
+      - scripts/replace_sha_hashes.sh
+    env:
+      TARGET_VARIANT: 'pointer-compression'
+    agents:
+      image: family/kibana-ubuntu-2004
+      provider: gcp
+      machineType: n2-standard-2
