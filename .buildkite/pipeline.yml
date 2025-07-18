@@ -36,7 +36,7 @@ steps:
     timeout_in_minutes: 180 # ideally runs in ~2hr
 
   - label: Build custom node.js artifacts with pointer compression for x64
-    if: build.env("SKIP_POINTER_COMPRESSION") == null
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
@@ -51,7 +51,7 @@ steps:
     timeout_in_minutes: 60 # ideally runs in ~30m
 
   - label: Build custom node.js artifacts with pointer compression for arm64
-    if: build.env("SKIP_POINTER_COMPRESSION") == null
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
@@ -78,7 +78,7 @@ steps:
       machineType: n2-standard-2
 
   - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
-    if: build.env("SKIP_POINTER_COMPRESSION") == null
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
     command:
       - scripts/replace_sha_hashes.sh
     env:
