@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y \
          git \
-         g++-13 \
+         g++-10 \
          curl \
          make \
          python3 \
