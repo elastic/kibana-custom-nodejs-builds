@@ -5,7 +5,7 @@ steps:
   - label: Annotate build with node version
     command:
       - scripts/annotate_build.sh
-  
+
   - label: Build custom node.js artifacts with glibc 2.17 for x64
     command:
       - scripts/create_build_images.sh
@@ -13,9 +13,9 @@ steps:
       - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: amd64
-      TARGET_VARIANT: 'glibc-217'
+      TARGET_VARIANT: "glibc-217"
     agents:
-      image: family/kibana-ubuntu-2004
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-16
     timeout_in_minutes: 60 # ideally runs in ~30m
@@ -27,10 +27,9 @@ steps:
       - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: arm64
-      TARGET_VARIANT: 'glibc-217'
+      TARGET_VARIANT: "glibc-217"
     agents:
-      image: family/kibana-ubuntu-2004
-      imageProject: elastic-images-qa
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-60
     timeout_in_minutes: 180 # ideally runs in ~2hr
@@ -43,9 +42,9 @@ steps:
       - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: amd64
-      TARGET_VARIANT: 'pointer-compression'
+      TARGET_VARIANT: "pointer-compression"
     agents:
-      image: family/kibana-ubuntu-2004
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-16
     timeout_in_minutes: 60 # ideally runs in ~30m
@@ -58,9 +57,9 @@ steps:
       - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: arm64
-      TARGET_VARIANT: 'pointer-compression'
+      TARGET_VARIANT: "pointer-compression"
     agents:
-      image: family/kibana-ubuntu-2004
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-60
     timeout_in_minutes: 180 # ideally runs in ~2hr
@@ -71,9 +70,9 @@ steps:
     command:
       - scripts/replace_sha_hashes.sh
     env:
-      TARGET_VARIANT: 'glibc-217'
+      TARGET_VARIANT: "glibc-217"
     agents:
-      image: family/kibana-ubuntu-2004
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: n2-standard-2
 
@@ -82,8 +81,8 @@ steps:
     command:
       - scripts/replace_sha_hashes.sh
     env:
-      TARGET_VARIANT: 'pointer-compression'
+      TARGET_VARIANT: "pointer-compression"
     agents:
-      image: family/kibana-ubuntu-2004
+      image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: n2-standard-2
