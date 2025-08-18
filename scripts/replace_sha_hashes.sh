@@ -26,4 +26,10 @@ echo "--- Replacing checksums with local file hashes"
 replace_shasums_in_folder $ARTIFACT_DIST_DIR
 
 echo "--- Uploading SHASUMS256.txt to $BUCKET_NAME"
-gsutil cp -r "$ARTIFACT_DIST_DIR/SHASUMS256.txt" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH/
+if [[ "${DRY_RUN:-}" == "1" || "${DRY_RUN:-}" == "true" ]]; then
+  echo "Dry run enabled, skipping SHASUM256.txt upload. Content would be:"
+  cat "$ARTIFACT_DIST_DIR/SHASUMS256.txt"
+  exit 0
+else
+  gsutil cp -r "$ARTIFACT_DIST_DIR/SHASUMS256.txt" gs://$BUCKET_NAME/$ARTIFACT_BASE_PATH/
+fi
