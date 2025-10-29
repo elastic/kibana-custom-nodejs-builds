@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG GID=1000
 ARG UID=1000
@@ -6,11 +6,11 @@ ARG UID=1000
 RUN apt-get update \
     && apt-get dist-upgrade -y \
     && apt-get install -y software-properties-common \
-    && add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt-get update \
     && apt-get install -y \
+         adduser \
          git \
-         g++-10 \
+         g++ \
          curl \
          make \
          python3 \
@@ -19,7 +19,8 @@ RUN apt-get update \
          ccache \
          xz-utils
 
-RUN addgroup --gid $GID node \
+RUN deluser --remove-home ubuntu \
+    && addgroup --gid $GID node \
     && adduser --gid $GID --uid $UID --disabled-password --gecos node node
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
