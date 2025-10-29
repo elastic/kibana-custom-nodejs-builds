@@ -5,9 +5,7 @@ ARG UID=1000
 
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && apt-get install -y software-properties-common \
-    && apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
          adduser \
          git \
          g++ \
@@ -17,7 +15,8 @@ RUN apt-get update \
          python3-pip \
          python3-setuptools \
          ccache \
-         xz-utils
+         xz-utils \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN deluser --remove-home ubuntu \
     && addgroup --gid $GID node \
