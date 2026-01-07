@@ -27,6 +27,7 @@ cd "/home/node/workdir/src/node-${full_version}"
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
 export CC="ccache gcc"
 export CXX="ccache g++"
+export CXXFLAGS="-std=gnu++17"
 
 . /opt/rh/devtoolset-10/enable
 
