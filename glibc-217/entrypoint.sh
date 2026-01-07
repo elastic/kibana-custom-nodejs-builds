@@ -29,7 +29,6 @@ export CC="ccache gcc"
 export CXX="ccache g++"
 
 . /opt/rh/devtoolset-10/enable
-. /opt/rh/rh-python38/enable
 
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \

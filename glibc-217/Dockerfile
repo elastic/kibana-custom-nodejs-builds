@@ -38,6 +38,7 @@ RUN cd /tmp \
     && echo "a7438eabd3a48139f42d4e058096af8d880b0bb6e8fb8c78838892e4ce5583f2  Python-3.9.25.tgz" | sha256sum -c - \
     && tar xzf Python-3.9.25.tgz \
     && cd Python-3.9.25 \
+    && . /opt/rh/devtoolset-10/enable \
     && ./configure --enable-optimizations --prefix=/usr/local \
     && make -j$(nproc) \
     && make altinstall \
