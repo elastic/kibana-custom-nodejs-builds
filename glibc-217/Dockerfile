@@ -23,11 +23,28 @@ RUN ulimit -n 1024 \
          curl \
          make \
          python2 \
-         rh-python38 \
          ccache \
-         xz-utils \
+         xz \
          devtoolset-10 \
-         glibc-devel
+         glibc-devel \
+         # Python 3.9 build dependencies
+         openssl-devel \
+         bzip2-devel \
+         libffi-devel \
+         zlib-devel
+
+RUN cd /tmp \
+    && curl -O https://www.python.org/ftp/python/3.9.25/Python-3.9.25.tgz \
+    && echo "a7438eabd3a48139f42d4e058096af8d880b0bb6e8fb8c78838892e4ce5583f2  Python-3.9.25.tgz" | sha256sum -c - \
+    && tar xzf Python-3.9.25.tgz \
+    && cd Python-3.9.25 \
+    && ./configure --enable-optimizations --prefix=/usr/local \
+    && make -j$(nproc) \
+    && make altinstall \
+    && cd /tmp \
+    && rm -rf Python-3.9.25* \
+    && ln -s /usr/local/bin/python3.9 /usr/local/bin/python3 \
+    && ln -s /usr/local/bin/pip3.9 /usr/local/bin/pip3
 
 COPY --chown=node:node entrypoint.sh /home/node/entrypoint.sh
 
