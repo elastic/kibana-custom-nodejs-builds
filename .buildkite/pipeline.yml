@@ -50,7 +50,6 @@ steps:
   #     provider: gcp
   #     machineType: c2-standard-24
   #     diskType: 'hyperdisk-balanced'
-
   #   timeout_in_minutes: 60
 
   # - label: Build custom node.js artifacts with pointer compression for arm64
