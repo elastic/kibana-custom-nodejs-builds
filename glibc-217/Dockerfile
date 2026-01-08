@@ -30,8 +30,6 @@ RUN ulimit -n 1024 \
          devtoolset-10 \
          wget \
          bzip2 \
-         gcc \
-         gcc-c++ \
          # Python 3.9 build dependencies
          openssl-devel \
          bzip2-devel \
@@ -57,17 +55,13 @@ RUN cd /tmp \
     && cd /tmp \
     && rm -rf gcc-${GCC_VERSION} gcc-${GCC_VERSION}.tar.gz
 
-ENV PATH="/usr/local/gcc-12/bin:$PATH"
-ENV LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
-ENV CC=/usr/local/gcc-12/bin/gcc
-ENV CXX=/usr/local/gcc-12/bin/g++
-
 ENV PYTHON_VERSION=3.9.25
 RUN cd /tmp \
     && curl -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
     && echo "a7438eabd3a48139f42d4e058096af8d880b0bb6e8fb8c78838892e4ce5583f2  Python-${PYTHON_VERSION}.tgz" | sha256sum -c - \
     && tar xzf Python-${PYTHON_VERSION}.tgz \
     && cd Python-${PYTHON_VERSION} \
+    && . /opt/rh/devtoolset-10/enable \
     && ./configure --enable-optimizations --prefix=/usr/local \
     && make -j$(nproc) \
     && make altinstall \
