@@ -27,6 +27,7 @@ RUN ulimit -n 1024 \
          xz \
          glibc-devel \
          # gcc build dependencies
+         devtoolset-10 \
          wget \
          bzip2 \
          gcc \
@@ -46,6 +47,7 @@ RUN cd /tmp \
     && ./contrib/download_prerequisites \
     && mkdir build \
     && cd build \
+    && . /opt/rh/devtoolset-10/enable \
     && ../configure \
         --prefix=/usr/local/gcc-12 \
         --enable-languages=c,c++ \
