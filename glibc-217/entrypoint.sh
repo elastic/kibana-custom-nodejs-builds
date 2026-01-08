@@ -24,12 +24,10 @@ sed -i 's/define HAVE_GETRANDOM 1/undef HAVE_GETRANDOM/g' ./ares_config.h
 cd "/home/node/workdir/src/node-${full_version}"
 
 # Compile from source
+export PYTHON=python3
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export CC="ccache gcc"
-export CXX="ccache g++"
-export CXXFLAGS="-std=gnu++17"
-
-. /opt/rh/devtoolset-10/enable
+export CC="ccache /usr/local/gcc-12/bin/gcc"
+export CXX="ccache /usr/local/gcc-12/bin/g++"
 
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \
