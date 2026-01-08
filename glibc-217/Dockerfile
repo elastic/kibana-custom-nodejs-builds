@@ -56,7 +56,7 @@ RUN cd /tmp \
     && rm -rf gcc-${GCC_VERSION} gcc-${GCC_VERSION}.tar.gz
 
 ENV PATH="/usr/local/gcc-12/bin:$PATH"
-ENV LD_LIBRARY_PATH="/usr/local/gcc-12/lib64:$LD_LIBRARY_PATH"
+ENV LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
 ENV CC=/usr/local/gcc-12/bin/gcc
 ENV CXX=/usr/local/gcc-12/bin/g++
 
