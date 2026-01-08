@@ -18,7 +18,7 @@ steps:
       image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-16
-    timeout_in_minutes: 60 # ideally runs in ~30m
+    timeout_in_minutes: 60
 
   - label: Build custom node.js artifacts with glibc 2.17 for arm64
     command:
@@ -32,7 +32,7 @@ steps:
       image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-60
-    timeout_in_minutes: 180 # ideally runs in ~2hr
+    timeout_in_minutes: 300
 
   - label: Build custom node.js artifacts with pointer compression for x64
     if: build.env('SKIP_POINTER_COMPRESSION') == null
@@ -47,7 +47,7 @@ steps:
       image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-16
-    timeout_in_minutes: 60 # ideally runs in ~30m
+    timeout_in_minutes: 60
 
   - label: Build custom node.js artifacts with pointer compression for arm64
     if: build.env('SKIP_POINTER_COMPRESSION') == null
@@ -62,7 +62,7 @@ steps:
       image: family/kibana-ubuntu-2404
       provider: gcp
       machineType: c2-standard-60
-    timeout_in_minutes: 180 # ideally runs in ~2hr
+    timeout_in_minutes: 300
 
   - wait
 
