@@ -10,7 +10,7 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: amd64
       TARGET_VARIANT: "glibc-217"
@@ -25,68 +25,68 @@ steps:
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
-      # - scripts/upload_nodejs_artifacts.sh
+      - scripts/upload_nodejs_artifacts.sh
     env:
       TARGET_ARCH: arm64
       TARGET_VARIANT: "glibc-217"
     agents:
       image: family/kibana-ubuntu-2404
       provider: gcp
-      machineType: c4-standard-96
+      machineType: c4-standard-144
       diskType: 'hyperdisk-balanced'
     timeout_in_minutes: 300
 
-  # - label: Build custom node.js artifacts with pointer compression for x64
-  #   if: build.env('SKIP_POINTER_COMPRESSION') == null
-  #   command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #     # - scripts/upload_nodejs_artifacts.sh
-  #   env:
-  #     TARGET_ARCH: amd64
-  #     TARGET_VARIANT: "pointer-compression"
-  #   agents:
-  #     image: family/kibana-ubuntu-2404
-  #     provider: gcp
-  #     machineType: c2-standard-24
-  #     diskType: 'hyperdisk-balanced'
-  #   timeout_in_minutes: 60
+  - label: Build custom node.js artifacts with pointer compression for x64
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
+    command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_nodejs_artifacts.sh
+    env:
+      TARGET_ARCH: amd64
+      TARGET_VARIANT: "pointer-compression"
+    agents:
+      image: family/kibana-ubuntu-2404
+      provider: gcp
+      machineType: c4-standard-24
+      diskType: 'hyperdisk-balanced'
+    timeout_in_minutes: 60
 
-  # - label: Build custom node.js artifacts with pointer compression for arm64
-  #   if: build.env('SKIP_POINTER_COMPRESSION') == null
-  #   command:
-  #     - scripts/create_build_images.sh
-  #     - scripts/build_nodejs.sh
-  #     # - scripts/upload_nodejs_artifacts.sh
-  #   env:
-  #     TARGET_ARCH: arm64
-  #     TARGET_VARIANT: "pointer-compression"
-  #   agents:
-  #     image: family/kibana-ubuntu-2404
-  #     provider: gcp
-  #     machineType: c4-standard-96
-  #     diskType: 'hyperdisk-balanced'
-  #   timeout_in_minutes: 300
+  - label: Build custom node.js artifacts with pointer compression for arm64
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
+    command:
+      - scripts/create_build_images.sh
+      - scripts/build_nodejs.sh
+      - scripts/upload_nodejs_artifacts.sh
+    env:
+      TARGET_ARCH: arm64
+      TARGET_VARIANT: "pointer-compression"
+    agents:
+      image: family/kibana-ubuntu-2404
+      provider: gcp
+      machineType: c4-standard-48
+      diskType: 'hyperdisk-balanced'
+    timeout_in_minutes: 300
 
-  # - wait
+  - wait
 
-  # - label: Fix SHASUMS256.txt with newly built files' hashes with glibc 2.17
-  #   command:
-  #     - scripts/replace_sha_hashes.sh
-  #   env:
-  #     TARGET_VARIANT: "glibc-217"
-  #   agents:
-  #     image: family/kibana-ubuntu-2404
-  #     provider: gcp
-  #     machineType: n2-standard-2
+  - label: Fix SHASUMS256.txt with newly built files' hashes with glibc 2.17
+    command:
+      - scripts/replace_sha_hashes.sh
+    env:
+      TARGET_VARIANT: "glibc-217"
+    agents:
+      image: family/kibana-ubuntu-2404
+      provider: gcp
+      machineType: n2-standard-2
 
-  # - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
-  #   if: build.env('SKIP_POINTER_COMPRESSION') == null
-  #   command:
-  #     - scripts/replace_sha_hashes.sh
-  #   env:
-  #     TARGET_VARIANT: "pointer-compression"
-  #   agents:
-  #     image: family/kibana-ubuntu-2404
-  #     provider: gcp
-  #     machineType: n2-standard-2
+  - label: Fix SHASUMS256.txt with newly built files' hashes with pointer compression
+    if: build.env('SKIP_POINTER_COMPRESSION') == null
+    command:
+      - scripts/replace_sha_hashes.sh
+    env:
+      TARGET_VARIANT: "pointer-compression"
+    agents:
+      image: family/kibana-ubuntu-2404
+      provider: gcp
+      machineType: n2-standard-2
