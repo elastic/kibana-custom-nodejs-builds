@@ -25,9 +25,9 @@ cd "/home/node/workdir/src/node-${full_version}"
 
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
 export CC="ccache /usr/local/gcc-12/bin/gcc"
 export CXX="ccache /usr/local/gcc-12/bin/g++"
+export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
 
 . /opt/rh/devtoolset-10/enable
 
