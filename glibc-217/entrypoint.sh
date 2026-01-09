@@ -23,6 +23,32 @@ sed -i 's/define HAVE_GETRANDOM 1/undef HAVE_GETRANDOM/g' ./ares_config.h
 
 cd "/home/node/workdir/src/node-${full_version}"
 
+# Polyfill memfd_create. syscall numbers: x64=319, arm64=279
+# ../deps/v8/src/wasm/wasm-objects.cc: In static member function 'static v8::internal::MaybeDirectHandle<v8::internal::WasmMemoryMapDescriptor> v8::internal::WasmMemoryMapDescriptor::NewFromAnonymous(v8::internal::Isolate*, size_t)':
+# ../deps/v8/src/wasm/wasm-objects.cc:1338:68: error: 'MFD_CLOEXEC' was not declared in this scope
+#  1338 |   int file_descriptor = memfd_create("wasm_memory_map_descriptor", MFD_CLOEXEC);
+#       |                                                                    ^~~~~~~~~~~
+# ../deps/v8/src/wasm/wasm-objects.cc:1338:25: error: 'memfd_create' was not declared in this scope; did you mean 'timer_create'?
+#  1338 |   int file_descriptor = memfd_create("wasm_memory_map_descriptor", MFD_CLOEXEC);
+#       |                         ^~~~~~~~~~~~
+#       |                         timer_create
+# make[2]: *** [tools/v8_gypfiles/v8_base_without_compiler.target.mk:1144: /home/node/workdir/src/node-v24.12.0/out/Release/obj.target/v8_base_without_compiler/deps/v8/src/wasm/wasm-objects.o] Error 1
+if [[ "$architecture" == "x64" ]]; then sc=319; else sc=279; fi
+cat > memfd_polyfill.h <<EOF
+#include <sys/syscall.h>
+#include <unistd.h>
+
+#ifndef MFD_CLOEXEC
+#define MFD_CLOEXEC 0x0001U
+#endif
+
+static inline int memfd_create(const char *name, unsigned int flags) {
+    return syscall($sc, name, flags);
+}
+EOF
+sed -i "/#include \"src\/wasm\/wasm-objects.h\"/r memfd_polyfill.h" deps/v8/src/wasm/wasm-objects.cc
+rm memfd_polyfill.h
+
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
 export CC="ccache /usr/local/gcc-12/bin/gcc"
