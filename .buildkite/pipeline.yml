@@ -34,7 +34,7 @@ steps:
       provider: gcp
       machineType: c4-standard-16
       diskType: 'hyperdisk-balanced'
-    timeout_in_minutes: 1440
+    timeout_in_minutes: 720
 
   - label: Build custom node.js artifacts with pointer compression for x64
     if: build.env('SKIP_POINTER_COMPRESSION') == null
@@ -50,7 +50,7 @@ steps:
       provider: gcp
       machineType: c4-standard-4
       diskType: 'hyperdisk-balanced'
-    timeout_in_minutes: 240
+    timeout_in_minutes: 180
 
   - label: Build custom node.js artifacts with pointer compression for arm64
     if: build.env('SKIP_POINTER_COMPRESSION') == null
@@ -66,7 +66,7 @@ steps:
       provider: gcp
       machineType: c4-standard-16
       diskType: 'hyperdisk-balanced'
-    timeout_in_minutes: 1440
+    timeout_in_minutes: 360
 
   - wait
 
