@@ -5,7 +5,7 @@ source ./scripts/common.sh
 
 # TARGET_VERSION provided in env
 
-ARTIFACT_BASE_PATH="node-$TARGET_VARIANT-test/dist/v$TARGET_VERSION/"
+ARTIFACT_BASE_PATH="node-$TARGET_VARIANT/dist/v$TARGET_VERSION/"
 ARTIFACT_DIST_DIR="./workdir/dist"
 
 list_shasums_in_folder $ARTIFACT_DIST_DIR

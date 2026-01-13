@@ -57,7 +57,9 @@ export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
 export CC="ccache /usr/local/gcc-12/bin/gcc"
 export CXX="ccache /usr/local/gcc-12/bin/g++"
 export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
+export LDFLAGS="-static-libstdc++ -static-libgcc"
 
+# For loading a newer version of binutils
 . /opt/rh/devtoolset-10/enable
 
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
@@ -65,8 +67,7 @@ make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   ARCH="$architecture" \
   DISTTYPE="release" \
   RELEASE_URLBASE="$release_url_base" \
-  CONFIG_FLAGS="$config_flags" \
-  LDFLAGS="-static-libstdc++ -static-libgcc"
+  CONFIG_FLAGS="$config_flags"
 
 mkdir -p /home/node/workdir/dist/
 chmod a+w /home/node/workdir/dist
