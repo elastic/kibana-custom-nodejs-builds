@@ -7,6 +7,7 @@ steps:
       - scripts/annotate_build.sh
 
   - label: Build custom node.js artifacts with glibc 2.17 for x64
+    if: build.env('SKIP_GLIBC_217') == null
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
@@ -23,6 +24,7 @@ steps:
     timeout_in_minutes: 240
 
   - label: Build custom node.js artifacts with glibc 2.17 for arm64
+    if: build.env('SKIP_GLIBC_217') == null
     command:
       - scripts/create_build_images.sh
       - scripts/build_nodejs.sh
@@ -75,6 +77,7 @@ steps:
   - wait
 
   - label: Fix SHASUMS256.txt with newly built files' hashes with glibc 2.17
+    if: build.env('SKIP_GLIBC_217') == null
     command:
       - scripts/replace_sha_hashes.sh
     env:
