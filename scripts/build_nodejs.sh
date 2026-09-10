@@ -17,9 +17,12 @@ echo "Running node.js build in folder: `pwd`"
 echo '--- Downloading node source'
 FILE_NAME="node-$TARGET_NODE_VERSION.tar.xz"
 OUTPUT_PATH="./workdir/src/$FILE_NAME"
-retry 5 15 curl --create-dirs --output $OUTPUT_PATH -fsSLO --compressed \
-  https://nodejs.org/download/release/$TARGET_NODE_VERSION/$FILE_NAME
-tar -xf $OUTPUT_PATH -C ./workdir/src
+SOURCE_URL="${CUSTOM_NODE_SOURCE_URL:-https://nodejs.org/download/release/${TARGET_NODE_VERSION}/${FILE_NAME}}"
+echo "Source URL: $SOURCE_URL"
+retry 5 15 curl --create-dirs --output "$OUTPUT_PATH" -fsSL --compressed \
+  "$SOURCE_URL"
+tar -xf "$OUTPUT_PATH" -C ./workdir/src
+test -d "./workdir/src/node-${TARGET_NODE_VERSION}"
 chmod -R a+rwx ./workdir/
 
 
