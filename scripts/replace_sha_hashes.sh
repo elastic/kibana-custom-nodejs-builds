@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+if [[ "${DRY_RUN:-}" == "1" || "${DRY_RUN:-}" == "true" ]]; then
+  echo "Dry run enabled, skipping checksum publication"
+  exit 0
+fi
+
 source ./scripts/common.sh
 
 # TARGET_VERSION provided in env
