@@ -54,13 +54,17 @@ fi
 
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export CC="ccache /usr/local/gcc-12/bin/gcc"
-export CXX="ccache /usr/local/gcc-12/bin/g++"
-export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
+export CC="ccache /usr/local/gcc-16/bin/gcc"
+export CXX="ccache /usr/local/gcc-16/bin/g++"
+export LD_LIBRARY_PATH="/usr/local/gcc-16/lib64"
 export LDFLAGS="-static-libstdc++ -static-libgcc"
 
 # For loading a newer version of binutils
 . /opt/rh/devtoolset-10/enable
+
+if [[ "$major_version" -ge 26 ]]; then
+  config_flags="$config_flags --v8-enable-temporal-support"
+fi
 
 make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DESTCPU="$architecture" \
@@ -68,6 +72,15 @@ make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DISTTYPE="release" \
   RELEASE_URLBASE="$release_url_base" \
   CONFIG_FLAGS="$config_flags"
+
+# Run without the compiler's library path so missing runtime dependencies fail
+# here instead of on older hosts after the artifacts are published.
+env -u LD_LIBRARY_PATH ./node -e \
+  "if (process.version !== '$full_version') throw new Error('Unexpected Node version: ' + process.version)"
+if [[ "$major_version" -ge 26 ]]; then
+  env -u LD_LIBRARY_PATH ./node -e \
+    "if (typeof Temporal === 'undefined') throw new Error('Temporal is missing')"
+fi
 
 mkdir -p /home/node/workdir/dist/
 chmod a+w /home/node/workdir/dist

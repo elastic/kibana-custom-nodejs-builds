@@ -7,6 +7,11 @@ release_url_base="$1"
 full_version="$2"
 config_flags='--experimental-enable-pointer-compression'
 
+major_version=$(echo "$full_version" | cut -d. -f1 | sed 's/^v//')
+if [[ "$major_version" -ge 26 ]]; then
+  config_flags="$config_flags --v8-enable-temporal-support"
+fi
+
 if [[ $(arch) == x86_64 ]]; then
   architecture="x64";
 else
@@ -29,6 +34,15 @@ make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
   DISTTYPE="release" \
   RELEASE_URLBASE="$release_url_base" \
   CONFIG_FLAGS="$config_flags"
+
+./node -e \
+  "if (process.version !== '$full_version') throw new Error('Unexpected Node version: ' + process.version)"
+./node -e \
+  "if (!process.config.variables.v8_enable_pointer_compression) throw new Error('Pointer compression is missing')"
+if [[ "$major_version" -ge 26 ]]; then
+  ./node -e \
+    "if (typeof Temporal === 'undefined') throw new Error('Temporal is missing')"
+fi
 
 mkdir -p /home/node/workdir/dist/
 chmod a+w /home/node/workdir/dist
