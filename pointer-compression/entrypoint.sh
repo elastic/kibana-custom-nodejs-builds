@@ -37,6 +37,8 @@ make -j"$(getconf _NPROCESSORS_ONLN)" binary V= \
 
 ./node -e \
   "if (process.version !== '$full_version') throw new Error('Unexpected Node version: ' + process.version)"
+./node -e \
+  "if (!process.config.variables.v8_enable_pointer_compression) throw new Error('Pointer compression is missing')"
 if [[ "$major_version" -ge 26 ]]; then
   ./node -e \
     "if (typeof Temporal === 'undefined') throw new Error('Temporal is missing')"
