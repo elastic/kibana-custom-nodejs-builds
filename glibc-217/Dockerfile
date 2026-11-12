@@ -30,16 +30,16 @@ RUN ulimit -n 1024 \
          devtoolset-10 \
          wget \
          bzip2 \
-         # Python 3.9 build dependencies
+         # Python build dependencies
          openssl-devel \
          bzip2-devel \
          libffi-devel \
          zlib-devel
 
-ENV GCC_VERSION=12.5.0
+ENV GCC_VERSION=13.5.0
 RUN cd /tmp \
     && curl -O https://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz \
-    && echo "f2dfac9c026c58b04251732aa459db614ae1017d32a18a296b1ae5af3dcad927  gcc-${GCC_VERSION}.tar.gz" | sha256sum -c - \
+    && echo "ee0c6280fb2e18304cb447a1abb5ed479c74196c75e01cde634489b80bcd172b  gcc-${GCC_VERSION}.tar.gz" | sha256sum -c - \
     && tar xzf gcc-${GCC_VERSION}.tar.gz \
     && cd gcc-${GCC_VERSION} \
     && ./contrib/download_prerequisites \
@@ -47,7 +47,7 @@ RUN cd /tmp \
     && cd build \
     && . /opt/rh/devtoolset-10/enable \
     && ../configure \
-        --prefix=/usr/local/gcc-12 \
+        --prefix=/usr/local/gcc-13 \
         --enable-languages=c,c++ \
         --disable-multilib \
     && make -j$(nproc) \
@@ -55,10 +55,10 @@ RUN cd /tmp \
     && cd /tmp \
     && rm -rf gcc-${GCC_VERSION} gcc-${GCC_VERSION}.tar.gz
 
-ENV PYTHON_VERSION=3.9.25
+ENV PYTHON_VERSION=3.12.16
 RUN cd /tmp \
     && curl -O https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
-    && echo "a7438eabd3a48139f42d4e058096af8d880b0bb6e8fb8c78838892e4ce5583f2  Python-${PYTHON_VERSION}.tgz" | sha256sum -c - \
+    && echo "710c3e75dac8b2f258d9cd0f76e5c4c2e9175fac9e249c98901552f7cf33b7dd  Python-${PYTHON_VERSION}.tgz" | sha256sum -c - \
     && tar xzf Python-${PYTHON_VERSION}.tgz \
     && cd Python-${PYTHON_VERSION} \
     && . /opt/rh/devtoolset-10/enable \
