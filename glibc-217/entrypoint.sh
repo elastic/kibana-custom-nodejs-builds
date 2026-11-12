@@ -54,9 +54,9 @@ fi
 
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export CC="ccache /usr/local/gcc-12/bin/gcc"
-export CXX="ccache /usr/local/gcc-12/bin/g++"
-export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
+export CC="ccache /usr/local/gcc-13/bin/gcc"
+export CXX="ccache /usr/local/gcc-13/bin/g++"
+export LD_LIBRARY_PATH="/usr/local/gcc-13/lib64"
 export LDFLAGS="-static-libstdc++ -static-libgcc"
 
 # For loading a newer version of binutils
