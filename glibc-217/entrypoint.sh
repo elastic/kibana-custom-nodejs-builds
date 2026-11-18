@@ -52,11 +52,26 @@ EOF
   rm memfd_polyfill.h
 fi
 
+# glibc < 2.28 <sys/types.h> pulls in <sys/sysmacros.h>, which defines function-like
+# major()/minor() macros. These clobber LIEF's version_t member initializers (Node.js 26).
+# Switching to brace-init avoids the macro expansion without #undef-ing it for other code.
+# ../deps/LIEF/include/LIEF/runtime/osx/Host.hpp: In constructor 'LIEF::runtime::osx::Host::version_t::version_t(uint32_t, uint32_t, uint32_t)':
+# ../deps/LIEF/include/LIEF/runtime/osx/Host.hpp:35:7: error: class 'LIEF::runtime::osx::Host::version_t' does not have any field named 'gnu_dev_major'
+#    35 |       major(major),
+#       |       ^~~~~
+if [[ "$major_version" -eq 26 ]]; then
+  for lief_host_hpp in deps/LIEF/include/LIEF/runtime/{osx,windows}/Host.hpp; do
+    if [[ -f "$lief_host_hpp" ]]; then
+      sed -i -E 's/\b(major|minor)\(\1\)/\1{\1}/g' "$lief_host_hpp"
+    fi
+  done
+fi
+
 # Compile from source
 export CCACHE_DIR="/home/node/workdir/.ccache-${architecture}"
-export CC="ccache /usr/local/gcc-12/bin/gcc"
-export CXX="ccache /usr/local/gcc-12/bin/g++"
-export LD_LIBRARY_PATH="/usr/local/gcc-12/lib64"
+export CC="ccache /usr/local/gcc-13/bin/gcc"
+export CXX="ccache /usr/local/gcc-13/bin/g++"
+export LD_LIBRARY_PATH="/usr/local/gcc-13/lib64"
 export LDFLAGS="-static-libstdc++ -static-libgcc"
 
 # For loading a newer version of binutils
